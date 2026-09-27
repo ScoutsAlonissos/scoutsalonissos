@@ -1,17 +1,8 @@
 /* =========================================================
    ALONISSOS SCOUTS
-   Main Website Stylesheet - Updated to Logo Brand
-   (Color Palette & Style based on image_0.png)
+   Main Website Stylesheet
    ========================================================= */
 
-/* Color Palette based on image_0.png:
-   - Deep Brown (Rope Border/Text): #5d4037
-   - Alonissos Sea Teal (Seal's water): #00897b
-   - Fleur-de-lis Gold/Active links: #d4a017
-   - Text (Dark Slate): #263238
-   - Background (Light Grey): #fafafa
-   - Hover Background: #f1f1f1
-*/
 
 /* =========================================================
    RESET
@@ -28,9 +19,9 @@ html {
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif; /* Keep sans-serif for body for readability */
-    color: #263238; /* Dark slate text */
-    background: #fafafa;
+    font-family: Arial, Helvetica, sans-serif;
+    color: #17324d;
+    background: #f7faf9;
     line-height: 1.6;
 }
 
@@ -58,10 +49,6 @@ header {
     border-bottom: 1px solid #e3e9e7;
 
     backdrop-filter: blur(10px);
-
-    /* Added texture to feel more like carved stone */
-    background-image: linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)),
-                      url("images/texture-rock.png"); /* Optional stone/rock texture */
 }
 
 nav {
@@ -78,7 +65,7 @@ nav {
     font-size: 1.1rem;
     font-weight: 800;
 
-    color: #5d4037; /* Deep Brown text */
+    color: #123d5a;
 
     text-decoration: none;
 }
@@ -111,7 +98,7 @@ nav {
 .nav-links a {
     text-decoration: none;
 
-    color: #263238;
+    color: #17324d;
 
     font-weight: 600;
     font-size: 0.95rem;
@@ -120,7 +107,7 @@ nav {
 }
 
 .nav-links a:hover {
-    color: #00897b; /* Alonissos Sea Teal */
+    color: #008b8b;
 }
 
 
@@ -147,7 +134,7 @@ nav {
 
 .language-picker a:hover,
 .language-picker a.active {
-    color: #d4a017; /* Fleur-de-lis Gold */
+    color: #008b8b;
 }
 
 
@@ -166,8 +153,8 @@ nav {
 
     background:
         linear-gradient(
-            rgba(38, 50, 56, 0.72), /* Dark slate/Deep water tone */
-            rgba(0, 137, 123, 0.52)  /* Alonissos Sea Teal tone */
+            rgba(7, 48, 70, 0.68),
+            rgba(0, 115, 125, 0.48)
         ),
         url("images/alonissos-hero.jpg");
 
@@ -245,19 +232,17 @@ nav {
 
     transition:
         transform 0.2s ease,
-        background 0.2s ease,
-        color 0.2s ease;
+        background 0.2s ease;
 }
 
 .button-primary {
-    background: #5d4037; /* Deep Brown */
+    background: #ffffff;
 
-    color: #d4a017; /* Fleur-de-lis Gold */
+    color: #07546c;
 }
 
 .button-primary:hover {
     transform: translateY(-2px);
-    background: #795548; /* Slightly lighter brown on hover */
 }
 
 .button-outline {
@@ -293,38 +278,19 @@ section {
 
     font-weight: 800;
 
-    color: #d4a017; /* Fleur-de-lis Gold label */
+    color: #008b8b;
 
     margin-bottom: 10px;
 }
 
 .section-title {
-    font-family: 'Times New Roman', serif; /* Use serif for section titles to echo logo's carved look */
     font-size: clamp(2rem, 4vw, 3.3rem);
 
     line-height: 1.1;
 
     margin-bottom: 20px;
 
-    color: #5d4037; /* Deep Brown title text */
-
-    position: relative;
-    padding-bottom: 10px;
-}
-
-/* Icon (Fleur-de-lis) as part of section header */
-.section-title::after {
-    content: " ⚜"; /* Simple fleur-de-lis icon marker */
-    color: #d4a017; /* Fleur-de-lis Gold */
-    font-size: 1.5rem;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-}
-
-/* Hover effect on titles to look more "carved in stone" */
-.section-title:hover {
-    text-shadow: 2px 2px 3px rgba(38, 50, 56, 0.4); /* Slate text shadow */
+    color: #123d5a;
 }
 
 .section-intro {
@@ -388,7 +354,7 @@ section {
 .fact {
     padding: 20px;
 
-    background: #f1f7f6; /* Lightest sea foam background */
+    background: #f1f7f6;
 
     border-radius: 12px;
 }
@@ -398,7 +364,7 @@ section {
 
     font-size: 1.7rem;
 
-    color: #00897b; /* Alonissos Sea Teal fact number */
+    color: #007d85;
 }
 
 
@@ -407,7 +373,7 @@ section {
    ========================================================= */
 
 .activities {
-    background: #f1f1f1; /* Light hover/secondary background */
+    background: #f3f8f7;
 }
 
 .cards {
@@ -443,13 +409,12 @@ section {
     font-size: 2rem;
 
     margin-bottom: 15px;
-    color: #5d4037; /* Deep brown icon */
 }
 
 .card h3 {
     margin-bottom: 10px;
 
-    color: #5d4037; /* Deep brown title */
+    color: #123d5a;
 }
 
 .card p {
@@ -466,20 +431,17 @@ section {
 
     background:
         linear-gradient(
-            rgba(38, 50, 56, 0.9), /* Dark slate/Deep water */
-            rgba(0, 137, 123, 0.9)  /* Alonissos Sea Teal */
+            rgba(3, 53, 77, 0.9),
+            rgba(0, 116, 128, 0.9)
         ),
         url("images/marine.jpg");
 
     background-size: cover;
     background-position: center;
-    /* texture to feel less modern and more marine and history-oriented */
-    background-image: linear-gradient(rgba(38, 50, 56, 0.9), rgba(0, 137, 123, 0.9)),
-                      url("images/texture-rock.png"); /* Optional stone/rock texture */
 }
 
 .marine .section-label {
-    color: #8ee5df; /* Very light teal label */
+    color: #8ee5df;
 }
 
 .marine .section-title {
@@ -537,7 +499,7 @@ section {
 .timeline {
     margin-top: 45px;
 
-    border-left: 3px solid #5d4037; /* Deep Brown Timeline Line */
+    border-left: 3px solid #00a0a0;
 
     padding-left: 30px;
 }
@@ -549,14 +511,13 @@ section {
 .timeline-year {
     font-weight: 800;
 
-    color: #d4a017; /* Fleur-de-lis Gold for years */
+    color: #008b8b;
 
     font-size: 1.1rem;
 }
 
 .timeline-item h3 {
     margin: 4px 0;
-    color: #5d4037; /* Deep brown item title */
 }
 
 .timeline-item p {
@@ -569,7 +530,7 @@ section {
    ========================================================= */
 
 .gallery {
-    background: #f1f1f1; /* Light grey gallery background */
+    background: #f3f8f7;
 }
 
 .gallery-grid {
@@ -587,7 +548,7 @@ section {
 
     overflow: hidden;
 
-    background: #dbe8e7; /* Light slate background */
+    background: #dbe8e7;
 }
 
 .gallery-item img {
@@ -638,9 +599,9 @@ section {
 
     border-radius: 8px;
 
-    background: #fafafa; /* Lightest grey social link button */
+    background: #eef5f4;
 
-    color: #5d4037; /* Deep brown text */
+    color: #123d5a;
 
     text-decoration: none;
 
@@ -648,15 +609,13 @@ section {
 
     transition:
         background 0.2s ease,
-        transform 0.2s ease,
-        color 0.2s ease;
+        transform 0.2s ease;
 }
 
 .social-links a:hover {
-    background: #eef5f4; /* Subtle sea foam on hover */
+    background: #dcebea;
 
     transform: translateY(-2px);
-    color: #00897b; /* Alonissos Sea Teal text on hover */
 }
 
 
@@ -665,9 +624,9 @@ section {
    ========================================================= */
 
 footer {
-    background: #263238; /* Dark slate footer */
+    background: #092c40;
 
-    color: #bcd0d5; /* Light grey footer text */
+    color: #bcd0d5;
 
     padding: 35px 24px;
 
@@ -677,7 +636,7 @@ footer {
 }
 
 footer strong {
-    color: #d4a017; /* Fleur-de-lis Gold strong text */
+    color: white;
 }
 
 
