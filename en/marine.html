@@ -1,10 +1,10 @@
+```html
 <!DOCTYPE html>
 
 <html lang="en">
 
 <head>
 
-```
 <meta charset="UTF-8">
 
 <meta
@@ -28,831 +28,858 @@
 
 <style>
 
-    /* =====================================================
-       PAGE
-       ===================================================== */
+/* =====================================================
+   PAGE
+   ===================================================== */
 
-    .marine-page {
-        background:
-            linear-gradient(
-                180deg,
-                #071d25 0%,
-                #0b2b35 45%,
-                #f4f7f6 45%,
-                #f4f7f6 100%
-            );
+.marine-page {
+    background:
+        linear-gradient(
+            180deg,
+            #071d25 0%,
+            #0b2b35 45%,
+            #f4f7f6 45%,
+            #f4f7f6 100%
+        );
 
-        color: #10242a;
-    }
+    color: #10242a;
+}
 
 
-    /* =====================================================
-       HERO
-       ===================================================== */
+/* =====================================================
+   HERO
+   ===================================================== */
 
-    .marine-hero {
-        padding: 90px 0 70px;
-        color: white;
-    }
+.marine-hero {
+    padding: 90px 0 70px;
+    color: white;
+}
 
+
+.marine-hero-grid {
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        320px;
+
+    gap: 60px;
+
+    align-items: end;
+}
+
+
+.marine-eyebrow {
+    display: inline-flex;
+
+    align-items: center;
+
+    gap: 9px;
+
+    padding: 7px 12px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.18);
+
+    border-radius: 999px;
+
+    background:
+        rgba(255,255,255,.06);
+
+    color: #b9e5e7;
+
+    font-size: 12px;
+
+    font-weight: 700;
+
+    letter-spacing: .12em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 22px;
+}
+
+
+.marine-eyebrow-dot {
+    width: 7px;
+    height: 7px;
+
+    border-radius: 50%;
+
+    background: #67cbd0;
+
+    box-shadow:
+        0 0 12px
+        rgba(103,203,208,.8);
+}
+
+
+.marine-hero h1 {
+    max-width: 850px;
+
+    margin: 0 0 22px;
+
+    color: white;
+
+    font-size:
+        clamp(
+            42px,
+            7vw,
+            82px
+        );
+
+    line-height: .96;
+
+    letter-spacing: -.045em;
+}
+
+
+.marine-hero-lead {
+    max-width: 750px;
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.75);
+
+    font-size:
+        clamp(
+            17px,
+            2vw,
+            21px
+        );
+
+    line-height: 1.65;
+}
+
+
+.marine-status {
+    border-left:
+        1px solid
+        rgba(255,255,255,.2);
+
+    padding-left: 25px;
+}
+
+
+.marine-status-label {
+    color: #8acdd1;
+
+    font-size: 11px;
+
+    font-weight: 700;
+
+    text-transform: uppercase;
+
+    letter-spacing: .12em;
+
+    margin-bottom: 8px;
+}
+
+
+.marine-status strong {
+    display: block;
+
+    color: white;
+
+    font-size: 22px;
+
+    margin-bottom: 8px;
+}
+
+
+.marine-status p {
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.62);
+
+    line-height: 1.6;
+
+    font-size: 14px;
+}
+
+
+/* =====================================================
+   MAP SECTION
+   ===================================================== */
+
+.marine-map-section {
+    padding: 20px 0 90px;
+}
+
+
+.marine-map-shell {
+    position: relative;
+
+    display: grid;
+
+    grid-template-columns:
+        minmax(0, 1fr)
+        340px;
+
+    min-height: 650px;
+
+    border-radius: 28px;
+
+    overflow: hidden;
+
+    background: #092832;
+
+    box-shadow:
+        0 25px 70px
+        rgba(0,0,0,.18);
+}
+
+
+.marine-map-area {
+    position: relative;
+
+    min-width: 0;
+
+    min-height: 650px;
+
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 52% 50%,
+            rgba(39,111,122,.35),
+            transparent 38%
+        ),
+        #08232c;
+}
+
+
+#marine-map {
+    display: block;
+
+    width: 100%;
+
+    height: 650px;
+
+    cursor: grab;
+
+    user-select: none;
+
+    touch-action: none;
+
+    overflow: hidden;
+}
+
+
+#marine-map:active {
+    cursor: grabbing;
+}
+
+
+/* =====================================================
+   MAP
+   ===================================================== */
+
+.map-ocean {
+    fill: #08232c;
+}
+
+
+.map-grid {
+    fill: none;
+
+    stroke:
+        rgba(130,200,207,.09);
+
+    stroke-width: .7;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    pointer-events: none;
+}
+
+
+.map-country {
+    fill: #173e47;
+
+    stroke:
+        rgba(173,221,224,.32);
+
+    stroke-width: .65;
+
+    vector-effect:
+        non-scaling-stroke;
+
+    transition:
+        fill .2s;
+}
+
+
+.map-country:hover {
+    fill: #20535e;
+}
+
+
+/* =====================================================
+   ALONNISOS MARKER
+   ===================================================== */
+
+.map-location-ring {
+    fill:
+        rgba(93,211,216,.10);
+
+    stroke:
+        rgba(93,211,216,.55);
+
+    stroke-width: 1.5;
+
+    vector-effect:
+        non-scaling-stroke;
+}
+
+
+.map-location-pulse {
+    fill: none;
+
+    stroke: #65d5da;
+
+    stroke-width: 2;
+
+    opacity: .55;
+
+    vector-effect:
+        non-scaling-stroke;
+}
+
+
+.map-location-core {
+    fill: #73e0e3;
+
+    stroke: white;
+
+    stroke-width: 2;
+
+    vector-effect:
+        non-scaling-stroke;
+}
+
+
+.map-location-label {
+    fill: white;
+
+    font-size: 14px;
+
+    font-weight: 700;
+
+    pointer-events: none;
+
+    paint-order: stroke;
+
+    stroke: #08232c;
+
+    stroke-width: 3px;
+
+    stroke-linejoin: round;
+}
+
+
+.map-location-subtitle {
+    fill:
+        rgba(255,255,255,.58);
+
+    font-size: 10px;
+
+    pointer-events: none;
+
+    paint-order: stroke;
+
+    stroke: #08232c;
+
+    stroke-width: 2px;
+
+    stroke-linejoin: round;
+}
+
+
+/* =====================================================
+   MAP CONTROLS
+   ===================================================== */
+
+.marine-map-controls {
+    position: absolute;
+
+    top: 18px;
+
+    right: 18px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+    z-index: 10;
+}
+
+
+.marine-map-controls button {
+    width: 44px;
+
+    height: 44px;
+
+    border:
+        1px solid
+        rgba(255,255,255,.14);
+
+    border-radius: 11px;
+
+    background:
+        rgba(8,35,44,.88);
+
+    color: white;
+
+    font-size: 20px;
+
+    cursor: pointer;
+
+    backdrop-filter: blur(8px);
+}
+
+
+.marine-map-controls button:hover {
+    background:
+        rgba(28,75,84,.95);
+}
+
+
+.marine-map-controls button:focus-visible {
+    outline:
+        3px solid
+        #73e0e3;
+
+    outline-offset: 2px;
+}
+
+
+.marine-map-caption {
+    position: absolute;
+
+    left: 20px;
+
+    bottom: 18px;
+
+    color:
+        rgba(255,255,255,.42);
+
+    font-size: 11px;
+
+    letter-spacing: .06em;
+
+    text-transform: uppercase;
+
+    pointer-events: none;
+}
+
+
+/* =====================================================
+   INFORMATION PANEL
+   ===================================================== */
+
+.marine-panel {
+    position: relative;
+
+    z-index: 2;
+
+    padding: 34px 30px;
+
+    background: #f8faf9;
+
+    border-left:
+        1px solid
+        rgba(255,255,255,.08);
+}
+
+
+.marine-panel-kicker {
+    color: #287982;
+
+    font-size: 11px;
+
+    font-weight: 800;
+
+    letter-spacing: .13em;
+
+    text-transform: uppercase;
+
+    margin-bottom: 10px;
+}
+
+
+.marine-panel h2 {
+    margin: 0 0 15px;
+
+    font-size: 29px;
+
+    line-height: 1.08;
+
+    color: #102a31;
+}
+
+
+.marine-panel p {
+    color: #52676c;
+
+    line-height: 1.7;
+
+    font-size: 15px;
+}
+
+
+.marine-panel-divider {
+    height: 1px;
+
+    background: #dce5e5;
+
+    margin: 25px 0;
+}
+
+
+/* =====================================================
+   FACTS
+   ===================================================== */
+
+.marine-facts {
+    display: grid;
+
+    grid-template-columns:
+        1fr
+        1fr;
+
+    gap: 10px;
+}
+
+
+.marine-fact {
+    padding: 14px;
+
+    background: #edf4f3;
+
+    border-radius: 12px;
+}
+
+
+.marine-fact strong {
+    display: block;
+
+    color: #123b42;
+
+    font-size: 18px;
+
+    margin-bottom: 3px;
+}
+
+
+.marine-fact span {
+    color: #687b7f;
+
+    font-size: 11px;
+
+    line-height: 1.4;
+}
+
+
+.marine-panel h3 {
+    margin: 26px 0 10px;
+
+    color: #17383e;
+
+    font-size: 16px;
+}
+
+
+.marine-panel ul {
+    padding-left: 19px;
+
+    margin: 0;
+
+    color: #52676c;
+
+    line-height: 1.75;
+
+    font-size: 14px;
+}
+
+
+.marine-proposal {
+    margin-top: 26px;
+
+    padding: 17px;
+
+    border-left:
+        3px solid
+        #2b858d;
+
+    background: #edf5f4;
+
+    border-radius:
+        0
+        10px
+        10px
+        0;
+}
+
+
+.marine-proposal strong {
+    display: block;
+
+    color: #17383e;
+
+    margin-bottom: 6px;
+
+    font-size: 13px;
+}
+
+
+.marine-proposal p {
+    margin: 0;
+
+    font-size: 13px;
+
+    line-height: 1.55;
+}
+
+
+/* =====================================================
+   CONTENT
+   ===================================================== */
+
+.marine-content {
+    padding: 95px 0;
+
+    background: #f4f7f6;
+}
+
+
+.marine-content-header {
+    max-width: 760px;
+
+    margin-bottom: 50px;
+}
+
+
+.marine-content-header .section-label {
+    margin-bottom: 12px;
+}
+
+
+.marine-content-header h2 {
+    margin-bottom: 18px;
+}
+
+
+.marine-content-header p {
+    color: #52676c;
+
+    line-height: 1.75;
+}
+
+
+.marine-idea-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+}
+
+
+.marine-idea {
+    padding: 28px;
+
+    border-radius: 18px;
+
+    background: white;
+
+    border:
+        1px solid
+        #e1e8e7;
+}
+
+
+.marine-idea-number {
+    color: #2b858d;
+
+    font-size: 12px;
+
+    font-weight: 800;
+
+    letter-spacing: .12em;
+
+    margin-bottom: 18px;
+}
+
+
+.marine-idea h3 {
+    margin-bottom: 10px;
+
+    color: #17383e;
+}
+
+
+.marine-idea p {
+    margin: 0;
+
+    color: #617477;
+
+    line-height: 1.7;
+
+    font-size: 14px;
+}
+
+
+.marine-next {
+    margin-top: 45px;
+
+    padding: 35px;
+
+    border-radius: 20px;
+
+    background: #0b3039;
+
+    color: white;
+}
+
+
+.marine-next h2 {
+    margin-bottom: 12px;
+
+    color: white;
+}
+
+
+.marine-next p {
+    max-width: 800px;
+
+    margin: 0;
+
+    color:
+        rgba(255,255,255,.68);
+
+    line-height: 1.7;
+}
+
+
+.marine-back {
+    margin-top: 35px;
+}
+
+
+/* =====================================================
+   RESPONSIVE
+   ===================================================== */
+
+@media (max-width: 950px) {
 
     .marine-hero-grid {
-        display: grid;
+        grid-template-columns: 1fr;
 
-        grid-template-columns:
-            minmax(0, 1fr)
-            320px;
-
-        gap: 60px;
-
-        align-items: end;
-    }
-
-
-    .marine-eyebrow {
-        display: inline-flex;
-
-        align-items: center;
-
-        gap: 9px;
-
-        padding: 7px 12px;
-
-        border:
-            1px solid
-            rgba(255,255,255,.18);
-
-        border-radius: 999px;
-
-        background:
-            rgba(255,255,255,.06);
-
-        color: #b9e5e7;
-
-        font-size: 12px;
-
-        font-weight: 700;
-
-        letter-spacing: .12em;
-
-        text-transform: uppercase;
-
-        margin-bottom: 22px;
-    }
-
-
-    .marine-eyebrow-dot {
-        width: 7px;
-        height: 7px;
-
-        border-radius: 50%;
-
-        background: #67cbd0;
-
-        box-shadow:
-            0 0 12px
-            rgba(103,203,208,.8);
-    }
-
-
-    .marine-hero h1 {
-        max-width: 850px;
-
-        margin: 0 0 22px;
-
-        color: white;
-
-        font-size:
-            clamp(
-                42px,
-                7vw,
-                82px
-            );
-
-        line-height: .96;
-
-        letter-spacing: -.045em;
-    }
-
-
-    .marine-hero-lead {
-        max-width: 750px;
-
-        margin: 0;
-
-        color:
-            rgba(255,255,255,.75);
-
-        font-size:
-            clamp(
-                17px,
-                2vw,
-                21px
-            );
-
-        line-height: 1.65;
+        gap: 30px;
     }
 
 
     .marine-status {
-        border-left:
+        border-left: 0;
+
+        border-top:
             1px solid
-            rgba(255,255,255,.2);
+            rgba(255,255,255,.18);
 
-        padding-left: 25px;
-    }
+        padding-left: 0;
 
-
-    .marine-status-label {
-        color: #8acdd1;
-
-        font-size: 11px;
-
-        font-weight: 700;
-
-        text-transform: uppercase;
-
-        letter-spacing: .12em;
-
-        margin-bottom: 8px;
-    }
-
-
-    .marine-status strong {
-        display: block;
-
-        color: white;
-
-        font-size: 22px;
-
-        margin-bottom: 8px;
-    }
-
-
-    .marine-status p {
-        margin: 0;
-
-        color:
-            rgba(255,255,255,.62);
-
-        line-height: 1.6;
-
-        font-size: 14px;
-    }
-
-
-    /* =====================================================
-       MAP SECTION
-       ===================================================== */
-
-    .marine-map-section {
-        padding: 20px 0 90px;
+        padding-top: 20px;
     }
 
 
     .marine-map-shell {
-        position: relative;
-
-        display: grid;
-
-        grid-template-columns:
-            minmax(0, 1fr)
-            340px;
-
-        min-height: 650px;
-
-        border-radius: 28px;
-
-        overflow: hidden;
-
-        background: #092832;
-
-        box-shadow:
-            0 25px 70px
-            rgba(0,0,0,.18);
+        grid-template-columns: 1fr;
     }
 
-
-    .marine-map-area {
-        position: relative;
-
-        min-width: 0;
-
-        min-height: 650px;
-
-        overflow: hidden;
-
-        background:
-            radial-gradient(
-                circle at 52% 50%,
-                rgba(39,111,122,.35),
-                transparent 38%
-            ),
-            #08232c;
-    }
-
-
-    #marine-map {
-        display: block;
-
-        width: 100%;
-
-        height: 650px;
-
-        cursor: grab;
-
-        user-select: none;
-
-        touch-action: none;
-    }
-
-
-    #marine-map:active {
-        cursor: grabbing;
-    }
-
-
-    /* =====================================================
-       MAP
-       ===================================================== */
-
-    .map-ocean {
-        fill: #08232c;
-    }
-
-
-    .map-grid {
-        fill: none;
-
-        stroke:
-            rgba(130,200,207,.09);
-
-        stroke-width: .7;
-
-        vector-effect:
-            non-scaling-stroke;
-
-        pointer-events: none;
-    }
-
-
-    .map-country {
-        fill: #173e47;
-
-        stroke:
-            rgba(173,221,224,.32);
-
-        stroke-width: .65;
-
-        vector-effect:
-            non-scaling-stroke;
-
-        transition:
-            fill .2s;
-    }
-
-
-    .map-country:hover {
-        fill: #20535e;
-    }
-
-
-    /* =====================================================
-       ALONNISOS MARKER
-       ===================================================== */
-
-    .map-location-ring {
-        fill:
-            rgba(93,211,216,.10);
-
-        stroke:
-            rgba(93,211,216,.55);
-
-        stroke-width: 1.5;
-    }
-
-
-    .map-location-pulse {
-        fill: none;
-
-        stroke: #65d5da;
-
-        stroke-width: 2;
-
-        opacity: .55;
-    }
-
-
-    .map-location-core {
-        fill: #73e0e3;
-
-        stroke: white;
-
-        stroke-width: 2;
-    }
-
-
-    .map-location-label {
-        fill: white;
-
-        font-size: 14px;
-
-        font-weight: 700;
-
-        pointer-events: none;
-    }
-
-
-    .map-location-subtitle {
-        fill:
-            rgba(255,255,255,.58);
-
-        font-size: 10px;
-
-        pointer-events: none;
-    }
-
-
-    /* =====================================================
-       MAP CONTROLS
-       ===================================================== */
-
-    .marine-map-controls {
-        position: absolute;
-
-        top: 18px;
-
-        right: 18px;
-
-        display: flex;
-
-        flex-direction: column;
-
-        gap: 7px;
-
-        z-index: 10;
-    }
-
-
-    .marine-map-controls button {
-        width: 44px;
-
-        height: 44px;
-
-        border:
-            1px solid
-            rgba(255,255,255,.14);
-
-        border-radius: 11px;
-
-        background:
-            rgba(8,35,44,.88);
-
-        color: white;
-
-        font-size: 20px;
-
-        cursor: pointer;
-
-        backdrop-filter: blur(8px);
-    }
-
-
-    .marine-map-controls button:hover {
-        background:
-            rgba(28,75,84,.95);
-    }
-
-
-    .marine-map-controls button:focus-visible {
-        outline:
-            3px solid
-            #73e0e3;
-
-        outline-offset: 2px;
-    }
-
-
-    .marine-map-caption {
-        position: absolute;
-
-        left: 20px;
-
-        bottom: 18px;
-
-        color:
-            rgba(255,255,255,.42);
-
-        font-size: 11px;
-
-        letter-spacing: .06em;
-
-        text-transform: uppercase;
-
-        pointer-events: none;
-    }
-
-
-    /* =====================================================
-       INFORMATION PANEL
-       ===================================================== */
 
     .marine-panel {
-        position: relative;
+        border-left: 0;
 
-        z-index: 2;
-
-        padding: 34px 30px;
-
-        background: #f8faf9;
-
-        border-left:
+        border-top:
             1px solid
-            rgba(255,255,255,.08);
-    }
-
-
-    .marine-panel-kicker {
-        color: #287982;
-
-        font-size: 11px;
-
-        font-weight: 800;
-
-        letter-spacing: .13em;
-
-        text-transform: uppercase;
-
-        margin-bottom: 10px;
-    }
-
-
-    .marine-panel h2 {
-        margin: 0 0 15px;
-
-        font-size: 29px;
-
-        line-height: 1.08;
-
-        color: #102a31;
-    }
-
-
-    .marine-panel p {
-        color: #52676c;
-
-        line-height: 1.7;
-
-        font-size: 15px;
-    }
-
-
-    .marine-panel-divider {
-        height: 1px;
-
-        background: #dce5e5;
-
-        margin: 25px 0;
-    }
-
-
-    /* =====================================================
-       FACTS
-       ===================================================== */
-
-    .marine-facts {
-        display: grid;
-
-        grid-template-columns:
-            1fr
-            1fr;
-
-        gap: 10px;
-    }
-
-
-    .marine-fact {
-        padding: 14px;
-
-        background: #edf4f3;
-
-        border-radius: 12px;
-    }
-
-
-    .marine-fact strong {
-        display: block;
-
-        color: #123b42;
-
-        font-size: 18px;
-
-        margin-bottom: 3px;
-    }
-
-
-    .marine-fact span {
-        color: #687b7f;
-
-        font-size: 11px;
-
-        line-height: 1.4;
-    }
-
-
-    .marine-panel h3 {
-        margin: 26px 0 10px;
-
-        color: #17383e;
-
-        font-size: 16px;
-    }
-
-
-    .marine-panel ul {
-        padding-left: 19px;
-
-        margin: 0;
-
-        color: #52676c;
-
-        line-height: 1.75;
-
-        font-size: 14px;
-    }
-
-
-    .marine-proposal {
-        margin-top: 26px;
-
-        padding: 17px;
-
-        border-left:
-            3px solid
-            #2b858d;
-
-        background: #edf5f4;
-
-        border-radius:
-            0
-            10px
-            10px
-            0;
-    }
-
-
-    .marine-proposal strong {
-        display: block;
-
-        color: #17383e;
-
-        margin-bottom: 6px;
-
-        font-size: 13px;
-    }
-
-
-    .marine-proposal p {
-        margin: 0;
-
-        font-size: 13px;
-
-        line-height: 1.55;
-    }
-
-
-    /* =====================================================
-       CONTENT
-       ===================================================== */
-
-    .marine-content {
-        padding: 95px 0;
-
-        background: #f4f7f6;
-    }
-
-
-    .marine-content-header {
-        max-width: 760px;
-
-        margin-bottom: 50px;
-    }
-
-
-    .marine-content-header .section-label {
-        margin-bottom: 12px;
-    }
-
-
-    .marine-content-header h2 {
-        margin-bottom: 18px;
-    }
-
-
-    .marine-content-header p {
-        color: #52676c;
-
-        line-height: 1.75;
+            #dce5e5;
     }
 
 
     .marine-idea-grid {
-        display: grid;
+        grid-template-columns: 1fr;
+    }
 
-        grid-template-columns:
-            repeat(3, 1fr);
+}
 
-        gap: 18px;
+
+@media (max-width: 650px) {
+
+    .marine-hero {
+        padding:
+            60px
+            0
+            50px;
     }
 
 
-    .marine-idea {
-        padding: 28px;
+    .marine-map-section {
+        padding-top: 0;
+    }
 
+
+    .marine-map-shell {
         border-radius: 18px;
-
-        background: white;
-
-        border:
-            1px solid
-            #e1e8e7;
     }
 
 
-    .marine-idea-number {
-        color: #2b858d;
+    .marine-map-area,
+    #marine-map {
 
-        font-size: 12px;
+        min-height: 440px;
 
-        font-weight: 800;
-
-        letter-spacing: .12em;
-
-        margin-bottom: 18px;
+        height: 440px;
     }
 
 
-    .marine-idea h3 {
-        margin-bottom: 10px;
-
-        color: #17383e;
+    .marine-panel {
+        padding:
+            27px
+            22px;
     }
 
 
-    .marine-idea p {
-        margin: 0;
-
-        color: #617477;
-
-        line-height: 1.7;
-
-        font-size: 14px;
+    .marine-content {
+        padding:
+            65px
+            0;
     }
 
 
     .marine-next {
-        margin-top: 45px;
-
-        padding: 35px;
-
-        border-radius: 20px;
-
-        background: #0b3039;
-
-        color: white;
+        padding: 25px;
     }
 
-
-    .marine-next h2 {
-        margin-bottom: 12px;
-
-        color: white;
-    }
-
-
-    .marine-next p {
-        max-width: 800px;
-
-        margin: 0;
-
-        color:
-            rgba(255,255,255,.68);
-
-        line-height: 1.7;
-    }
-
-
-    .marine-back {
-        margin-top: 35px;
-    }
-
-
-    /* =====================================================
-       RESPONSIVE
-       ===================================================== */
-
-    @media (max-width: 950px) {
-
-        .marine-hero-grid {
-            grid-template-columns: 1fr;
-
-            gap: 30px;
-        }
-
-
-        .marine-status {
-            border-left: 0;
-
-            border-top:
-                1px solid
-                rgba(255,255,255,.18);
-
-            padding-left: 0;
-
-            padding-top: 20px;
-        }
-
-
-        .marine-map-shell {
-            grid-template-columns: 1fr;
-        }
-
-
-        .marine-panel {
-            border-left: 0;
-
-            border-top:
-                1px solid
-                #dce5e5;
-        }
-
-
-        .marine-idea-grid {
-            grid-template-columns: 1fr;
-        }
-
-    }
-
-
-    @media (max-width: 650px) {
-
-        .marine-hero {
-            padding:
-                60px
-                0
-                50px;
-        }
-
-
-        .marine-map-section {
-            padding-top: 0;
-        }
-
-
-        .marine-map-shell {
-            border-radius: 18px;
-        }
-
-
-        .marine-map-area,
-        #marine-map {
-
-            min-height: 440px;
-
-            height: 440px;
-        }
-
-
-        .marine-panel {
-            padding:
-                27px
-                22px;
-        }
-
-
-        .marine-content {
-            padding:
-                65px
-                0;
-        }
-
-
-        .marine-next {
-            padding: 25px;
-        }
-
-    }
+}
 
 </style>
-```
 
 </head>
+
 
 <body>
 
 <div class="marine-page">
 
-```
+
 <!-- =====================================================
      NAVIGATION
      ===================================================== -->
@@ -1028,6 +1055,7 @@
                 <svg
                     id="marine-map"
                     viewBox="0 0 900 650"
+                    preserveAspectRatio="xMidYMid meet"
                     role="img"
                     aria-label="Interactive map of Europe showing Alonnisos as the proposed starting point of the Scout Marine Network"
                 >
@@ -1397,9 +1425,10 @@
     </div>
 
 </footer>
-```
+
 
 </div>
+
 
 <!-- =========================================================
      D3 + TOPOJSON MAP
@@ -1417,15 +1446,18 @@
 
 
     /* =====================================================
-       MAP SIZE
+       BASIC SETTINGS
        ===================================================== */
 
     const WIDTH = 900;
+
     const HEIGHT = 650;
 
 
     /* =====================================================
        ALONNISOS
+       
+       Longitude / latitude
        ===================================================== */
 
     const ALONNISOS = [
@@ -1438,10 +1470,14 @@
        SVG
        ===================================================== */
 
-    const svg = d3
-        .select("#marine-map");
+    const svg =
+        d3.select(
+            "#marine-map"
+        );
 
-    svg.selectAll("*").remove();
+
+    svg.selectAll("*")
+        .remove();
 
 
     /* =====================================================
@@ -1450,90 +1486,114 @@
 
     svg
         .append("rect")
-        .attr("class", "map-ocean")
-        .attr("width", WIDTH)
-        .attr("height", HEIGHT);
-
-
-    /* =====================================================
-       PROJECTION
-       
-       This controls the INITIAL Europe view.
-       
-       Smaller number = more zoomed out.
-       Larger number = more zoomed in.
-       ===================================================== */
-
-    const projection = d3
-        .geoMercator()
-        .center([
-            15,
-            50
-        ])
-        .scale(850)
-        .translate([
-            WIDTH / 2,
-            HEIGHT / 2
-        ]);
-
-
-    const path = d3
-        .geoPath()
-        .projection(projection);
-
-
-    /* =====================================================
-       MAIN GEOGRAPHY GROUP
-       ===================================================== */
-
-    const mapGroup = svg
-        .append("g")
         .attr(
             "class",
-            "map-group"
+            "map-ocean"
+        )
+        .attr(
+            "x",
+            0
+        )
+        .attr(
+            "y",
+            0
+        )
+        .attr(
+            "width",
+            WIDTH
+        )
+        .attr(
+            "height",
+            HEIGHT
         );
 
 
     /* =====================================================
-       LOAD 10m GEOGRAPHY
+       MAIN MAP GROUP
+       
+       EVERYTHING GEOGRAPHICAL IS INSIDE THIS GROUP:
+       
+       - countries
+       - graticule
+       - Alonnisos marker
+       
+       Therefore they all move together.
        ===================================================== */
 
-    const world = await d3.json(
-        "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json"
-    );
-
-
-    const allCountries = feature(
-        world,
-        world.objects.countries
-    );
+    const mapGroup =
+        svg
+            .append("g")
+            .attr(
+                "class",
+                "map-group"
+            );
 
 
     /* =====================================================
-       EUROPE-ONLY FILTER
-       
-       We deliberately DON'T draw the whole world.
-       
-       This bounding box covers:
-       
-       longitude: -15 → 45
-       latitude:   34 → 72
-       
-       So the map is actually a Europe map.
+       LOAD GEOGRAPHY
        ===================================================== */
 
-    const EUROPE_WEST = -15;
-    const EUROPE_EAST = 45;
+    let world;
+
+    try {
+
+        world =
+            await d3.json(
+                "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-10m.json"
+            );
+
+    } catch (error) {
+
+        console.error(
+            "Unable to load map data:",
+            error
+        );
+
+        return;
+
+    }
+
+
+    /* =====================================================
+       CONVERT TO GEOJSON
+       ===================================================== */
+
+    const allCountries =
+        feature(
+            world,
+            world.objects.countries
+        );
+
+
+    /* =====================================================
+       EUROPE BOUNDS
+       ===================================================== */
+
+    const EUROPE_WEST = -12;
+
+    const EUROPE_EAST = 42;
+
     const EUROPE_SOUTH = 34;
+
     const EUROPE_NORTH = 72;
 
+
+    /* =====================================================
+       SELECT COUNTRIES
+       
+       Only countries intersecting the Europe window
+       are drawn.
+       ===================================================== */
 
     const europeCountries =
         allCountries.features.filter(
             country => {
 
                 const bounds =
-                    d3.geoBounds(country);
+                    d3.geoBounds(
+                        country
+                    );
+
 
                 const west =
                     bounds[0][0];
@@ -1549,10 +1609,15 @@
 
 
                 return (
+
                     east >= EUROPE_WEST &&
+
                     west <= EUROPE_EAST &&
+
                     north >= EUROPE_SOUTH &&
+
                     south <= EUROPE_NORTH
+
                 );
 
             }
@@ -1560,7 +1625,77 @@
 
 
     /* =====================================================
-       DRAW EUROPE
+       EUROPE FEATURE COLLECTION
+       ===================================================== */
+
+    const europeFrame = {
+
+        type:
+            "FeatureCollection",
+
+        features:
+            europeCountries
+
+    };
+
+
+    /* =====================================================
+       PROJECTION
+       
+       Fit Europe first.
+       
+       Then deliberately make the initial view wider.
+       ===================================================== */
+
+    const projection =
+        d3
+            .geoMercator()
+            .fitExtent(
+                [
+                    [
+                        45,
+                        35
+                    ],
+                    [
+                        855,
+                        615
+                    ]
+                ],
+                europeFrame
+            );
+
+
+    const fittedScale =
+        projection.scale();
+
+
+    projection
+        .scale(
+            fittedScale *
+            0.68
+        )
+        .translate(
+            [
+                WIDTH / 2,
+                HEIGHT / 2
+            ]
+        );
+
+
+    /* =====================================================
+       PATH GENERATOR
+       ===================================================== */
+
+    const path =
+        d3
+            .geoPath()
+            .projection(
+                projection
+            );
+
+
+    /* =====================================================
+       DRAW COUNTRIES
        ===================================================== */
 
     mapGroup
@@ -1585,25 +1720,30 @@
 
 
     /* =====================================================
-       GRID
+       GRATICULE
        ===================================================== */
 
-    const graticule = d3
-        .geoGraticule()
-        .extent([
-            [
-                EUROPE_WEST,
-                EUROPE_SOUTH
-            ],
-            [
-                EUROPE_EAST,
-                EUROPE_NORTH
-            ]
-        ])
-        .step([
-            10,
-            10
-        ]);
+    const graticule =
+        d3
+            .geoGraticule()
+            .extent(
+                [
+                    [
+                        EUROPE_WEST,
+                        EUROPE_SOUTH
+                    ],
+                    [
+                        EUROPE_EAST,
+                        EUROPE_NORTH
+                    ]
+                ]
+            )
+            .step(
+                [
+                    10,
+                    10
+                ]
+            );
 
 
     mapGroup
@@ -1622,7 +1762,10 @@
 
 
     /* =====================================================
-       ALONNISOS SCREEN POSITION
+       ALONNISOS POSITION
+       
+       This is calculated ONCE in the exact same projection
+       used by the countries.
        ===================================================== */
 
     const alonnisosPoint =
@@ -1632,73 +1775,38 @@
 
 
     /* =====================================================
-       MARKER GROUP
+       ALONNISOS MARKER
        
        IMPORTANT:
        
-       This is NOT inside mapGroup.
+       It is INSIDE mapGroup.
        
-       Therefore the marker does not get accidentally
-       transformed twice.
+       It therefore cannot drift independently from the map.
        ===================================================== */
 
-    const markerLayer = svg
-        .append("g")
-        .attr(
-            "class",
-            "marker-layer"
-        );
-
-
-    const marker = markerLayer
-        .append("g")
-        .attr(
-            "class",
-            "alonnisos-location"
-        );
+    const marker =
+        mapGroup
+            .append("g")
+            .attr(
+                "class",
+                "alonnisos-location"
+            );
 
 
     /* =====================================================
        MARKER POSITION
        ===================================================== */
 
-    function updateMarker(transform) {
-
-        const x =
-            transform.x +
-            alonnisosPoint[0] *
-            transform.k;
-
-        const y =
-            transform.y +
-            alonnisosPoint[1] *
-            transform.k;
-
-
-        /*
-           Keep the marker visually controlled.
-
-           At higher zoom levels it becomes smaller.
-        */
-
-        const markerScale =
-            1 /
-            Math.pow(
-                transform.k,
-                0.65
-            );
-
-
-        marker
-            .attr(
-                "transform",
-                `
-                translate(${x},${y})
-                scale(${markerScale})
-                `
-            );
-
-    }
+    marker
+        .attr(
+            "transform",
+            `
+            translate(
+                ${alonnisosPoint[0]},
+                ${alonnisosPoint[1]}
+            )
+            `
+        );
 
 
     /* =====================================================
@@ -1713,7 +1821,7 @@
         )
         .attr(
             "r",
-            15
+            18
         );
 
 
@@ -1729,7 +1837,7 @@
         )
         .attr(
             "r",
-            9
+            10
         );
 
 
@@ -1761,11 +1869,11 @@
         )
         .attr(
             "x",
-            18
+            22
         )
         .attr(
             "y",
-            -4
+            -5
         )
         .text(
             "Alonnisos"
@@ -1784,7 +1892,7 @@
         )
         .attr(
             "x",
-            18
+            22
         )
         .attr(
             "y",
@@ -1798,89 +1906,102 @@
     /* =====================================================
        ZOOM
        
-       1 = initial view.
-       6 = maximum.
+       1 = initial view
+       6 = maximum zoom
        
-       User CANNOT zoom out below 1.
+       Cannot zoom out below 1.
        ===================================================== */
 
-    const START_ZOOM = 1;
+    const MIN_ZOOM = 1;
 
     const MAX_ZOOM = 6;
-
-
-    /* =====================================================
-       INITIAL TRANSFORM
-       ===================================================== */
-
-    const START_TRANSFORM =
-        d3.zoomIdentity;
 
 
     /* =====================================================
        ZOOM BEHAVIOUR
        ===================================================== */
 
-    const zoom = d3
-        .zoom()
+    const zoom =
+        d3
+            .zoom()
 
-        .scaleExtent([
-            START_ZOOM,
-            MAX_ZOOM
-        ])
+            .scaleExtent(
+                [
+                    MIN_ZOOM,
+                    MAX_ZOOM
+                ]
+            )
 
-        /*
-           Limit panning.
-        */
+            .extent(
+                [
+                    [
+                        0,
+                        0
+                    ],
+                    [
+                        WIDTH,
+                        HEIGHT
+                    ]
+                ]
+            )
 
-        .translateExtent([
-            [
-                -100,
-                -80
-            ],
-            [
-                WIDTH + 100,
-                HEIGHT + 80
-            ]
-        ])
+            .translateExtent(
+                [
+                    [
+                        -150,
+                        -120
+                    ],
+                    [
+                        WIDTH + 150,
+                        HEIGHT + 120
+                    ]
+                ]
+            )
 
-        .extent([
-            [
-                0,
-                0
-            ],
-            [
-                WIDTH,
-                HEIGHT
-            ]
-        ])
+            .on(
+                "zoom",
+                event => {
 
-        .on(
-            "zoom",
-            function(event) {
+                    /*
+                       Move the entire map.
+                    */
 
-                /*
-                   Transform ONLY the geography.
-                */
-
-                mapGroup
-                    .attr(
-                        "transform",
-                        event.transform
-                    );
+                    mapGroup
+                        .attr(
+                            "transform",
+                            event.transform
+                        );
 
 
-                /*
-                   Position the marker independently
-                   using the SAME zoom transform.
-                */
+                    /*
+                       Make marker + label smaller
+                       as zoom increases.
+                    */
 
-                updateMarker(
-                    event.transform
-                );
+                    const markerScale =
+                        1 /
+                        Math.pow(
+                            event.transform.k,
+                            0.55
+                        );
 
-            }
-        );
+
+                    marker
+                        .attr(
+                            "transform",
+                            `
+                            translate(
+                                ${alonnisosPoint[0]},
+                                ${alonnisosPoint[1]}
+                            )
+                            scale(
+                                ${markerScale}
+                            )
+                            `
+                        );
+
+                }
+            );
 
 
     /* =====================================================
@@ -1893,7 +2014,7 @@
 
 
     /* =====================================================
-       DISABLE DOUBLE CLICK ZOOM
+       REMOVE DOUBLE CLICK ZOOM
        ===================================================== */
 
     svg.on(
@@ -1903,17 +2024,17 @@
 
 
     /* =====================================================
-       INITIAL MAP POSITION
+       INITIAL VIEW
        ===================================================== */
 
     svg.call(
         zoom.transform,
-        START_TRANSFORM
+        d3.zoomIdentity
     );
 
 
     /* =====================================================
-       PLUS
+       PLUS BUTTON
        ===================================================== */
 
     document
@@ -1922,11 +2043,13 @@
         )
         .addEventListener(
             "click",
-            function() {
+            () => {
 
                 svg
                     .transition()
-                    .duration(350)
+                    .duration(
+                        300
+                    )
                     .call(
                         zoom.scaleBy,
                         1.5
@@ -1937,9 +2060,10 @@
 
 
     /* =====================================================
-       MINUS
+       MINUS BUTTON
        
-       scaleExtent prevents going below 1.
+       D3 scaleExtent automatically prevents
+       going below MIN_ZOOM.
        ===================================================== */
 
     document
@@ -1948,11 +2072,13 @@
         )
         .addEventListener(
             "click",
-            function() {
+            () => {
 
                 svg
                     .transition()
-                    .duration(350)
+                    .duration(
+                        300
+                    )
                     .call(
                         zoom.scaleBy,
                         1 / 1.5
@@ -1972,9 +2098,10 @@
         )
         .addEventListener(
             "click",
-            function() {
+            () => {
 
-                const targetScale = 3.2;
+                const targetScale =
+                    3.5;
 
 
                 const targetX =
@@ -1990,7 +2117,8 @@
 
 
                 const targetTransform =
-                    d3.zoomIdentity
+                    d3
+                        .zoomIdentity
                         .translate(
                             targetX,
                             targetY
@@ -2002,7 +2130,9 @@
 
                 svg
                     .transition()
-                    .duration(800)
+                    .duration(
+                        700
+                    )
                     .call(
                         zoom.transform,
                         targetTransform
@@ -2022,14 +2152,16 @@
         )
         .addEventListener(
             "click",
-            function() {
+            () => {
 
                 svg
                     .transition()
-                    .duration(650)
+                    .duration(
+                        500
+                    )
                     .call(
                         zoom.transform,
-                        START_TRANSFORM
+                        d3.zoomIdentity
                     );
 
             }
@@ -2037,20 +2169,17 @@
 
 
     /* =====================================================
-       INITIAL MARKER
+       FINAL MESSAGE
        ===================================================== */
 
-    updateMarker(
-        d3.zoomIdentity
-    );
-
-
     console.log(
-        "Scout Marine Network map loaded."
+        "Scout Marine Network map loaded successfully."
     );
 
 </script>
 
 
 </body>
+
 </html>
+```
