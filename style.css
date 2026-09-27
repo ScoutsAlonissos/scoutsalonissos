@@ -1,6 +1,6 @@
 /* =========================================================
    1st GROUP OF SEA SCOUTS OF ALONISSOS (1ο ΣΠΑ)
-   Global Custom Stylesheet
+   Global Custom Stylesheet (Universal /en/ & /gr/)
    ========================================================= */
 
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Outfit:wght@600;800;900&display=swap');
@@ -31,7 +31,7 @@
 }
 
 /* =========================================================
-   RESET & TYPOGRAPHY
+   RESET & BASE TYPOGRAPHY
    ========================================================= */
 
 * {
@@ -128,7 +128,7 @@ nav {
     color: var(--navy-deep);
     position: relative;
     padding: 4px 0;
-    transition: color 0.25 ease;
+    transition: color 0.25s ease;
 }
 
 .nav-links a::after {
