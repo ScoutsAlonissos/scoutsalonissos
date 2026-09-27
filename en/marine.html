@@ -1407,10 +1407,6 @@
 
 <script type="module">
 
-    /* =====================================================
-       IMPORTS
-       ===================================================== */
-
     import * as d3 from
         "https://cdn.jsdelivr.net/npm/d3@7/+esm";
 
@@ -1421,7 +1417,7 @@
 
 
     /* =====================================================
-       DIMENSIONS
+       MAP SIZE
        ===================================================== */
 
     const WIDTH = 900;
@@ -1445,9 +1441,7 @@
     const svg = d3
         .select("#marine-map");
 
-    svg
-        .selectAll("*")
-        .remove();
+    svg.selectAll("*").remove();
 
 
     /* =====================================================
@@ -1456,33 +1450,25 @@
 
     svg
         .append("rect")
-        .attr(
-            "class",
-            "map-ocean"
-        )
-        .attr(
-            "width",
-            WIDTH
-        )
-        .attr(
-            "height",
-            HEIGHT
-        );
+        .attr("class", "map-ocean")
+        .attr("width", WIDTH)
+        .attr("height", HEIGHT);
 
 
     /* =====================================================
-       EUROPE PROJECTION
+       PROJECTION
        
-       850 = wider initial Europe view.
+       This controls the INITIAL Europe view.
        
-       Lower this number for an even wider view.
+       Smaller number = more zoomed out.
+       Larger number = more zoomed in.
        ===================================================== */
 
     const projection = d3
         .geoMercator()
         .center([
             15,
-            48
+            50
         ])
         .scale(850)
         .translate([
@@ -1493,13 +1479,11 @@
 
     const path = d3
         .geoPath()
-        .projection(
-            projection
-        );
+        .projection(projection);
 
 
     /* =====================================================
-       MAIN MAP GROUP
+       MAIN GEOGRAPHY GROUP
        ===================================================== */
 
     const mapGroup = svg
@@ -1511,7 +1495,7 @@
 
 
     /* =====================================================
-       LOAD DETAILED GEOGRAPHY
+       LOAD 10m GEOGRAPHY
        ===================================================== */
 
     const world = await d3.json(
@@ -1519,14 +1503,64 @@
     );
 
 
-    const countries = feature(
+    const allCountries = feature(
         world,
         world.objects.countries
     );
 
 
     /* =====================================================
-       COUNTRIES
+       EUROPE-ONLY FILTER
+       
+       We deliberately DON'T draw the whole world.
+       
+       This bounding box covers:
+       
+       longitude: -15 → 45
+       latitude:   34 → 72
+       
+       So the map is actually a Europe map.
+       ===================================================== */
+
+    const EUROPE_WEST = -15;
+    const EUROPE_EAST = 45;
+    const EUROPE_SOUTH = 34;
+    const EUROPE_NORTH = 72;
+
+
+    const europeCountries =
+        allCountries.features.filter(
+            country => {
+
+                const bounds =
+                    d3.geoBounds(country);
+
+                const west =
+                    bounds[0][0];
+
+                const south =
+                    bounds[0][1];
+
+                const east =
+                    bounds[1][0];
+
+                const north =
+                    bounds[1][1];
+
+
+                return (
+                    east >= EUROPE_WEST &&
+                    west <= EUROPE_EAST &&
+                    north >= EUROPE_SOUTH &&
+                    south <= EUROPE_NORTH
+                );
+
+            }
+        );
+
+
+    /* =====================================================
+       DRAW EUROPE
        ===================================================== */
 
     mapGroup
@@ -1537,7 +1571,7 @@
         )
         .selectAll("path")
         .data(
-            countries.features
+            europeCountries
         )
         .join("path")
         .attr(
@@ -1556,6 +1590,16 @@
 
     const graticule = d3
         .geoGraticule()
+        .extent([
+            [
+                EUROPE_WEST,
+                EUROPE_SOUTH
+            ],
+            [
+                EUROPE_EAST,
+                EUROPE_NORTH
+            ]
+        ])
         .step([
             10,
             10
@@ -1578,7 +1622,7 @@
 
 
     /* =====================================================
-       ALONNISOS POSITION
+       ALONNISOS SCREEN POSITION
        ===================================================== */
 
     const alonnisosPoint =
@@ -1588,10 +1632,25 @@
 
 
     /* =====================================================
-       ALONNISOS MARKER
+       MARKER GROUP
+       
+       IMPORTANT:
+       
+       This is NOT inside mapGroup.
+       
+       Therefore the marker does not get accidentally
+       transformed twice.
        ===================================================== */
 
-    const marker = mapGroup
+    const markerLayer = svg
+        .append("g")
+        .attr(
+            "class",
+            "marker-layer"
+        );
+
+
+    const marker = markerLayer
         .append("g")
         .attr(
             "class",
@@ -1603,13 +1662,29 @@
        MARKER POSITION
        ===================================================== */
 
-    function positionMarker(
-        scale = 1
-    ) {
+    function updateMarker(transform) {
+
+        const x =
+            transform.x +
+            alonnisosPoint[0] *
+            transform.k;
+
+        const y =
+            transform.y +
+            alonnisosPoint[1] *
+            transform.k;
+
+
+        /*
+           Keep the marker visually controlled.
+
+           At higher zoom levels it becomes smaller.
+        */
 
         const markerScale =
-            1 / Math.pow(
-                scale,
+            1 /
+            Math.pow(
+                transform.k,
                 0.65
             );
 
@@ -1617,20 +1692,17 @@
         marker
             .attr(
                 "transform",
-                `translate(
-                    ${alonnisosPoint[0]},
-                    ${alonnisosPoint[1]}
-                ) scale(${markerScale})`
+                `
+                translate(${x},${y})
+                scale(${markerScale})
+                `
             );
 
     }
 
 
-    positionMarker(1);
-
-
     /* =====================================================
-       OUTER RING
+       MARKER RING
        ===================================================== */
 
     marker
@@ -1646,7 +1718,7 @@
 
 
     /* =====================================================
-       PULSE
+       MARKER PULSE
        ===================================================== */
 
     marker
@@ -1662,7 +1734,7 @@
 
 
     /* =====================================================
-       CORE
+       MARKER CORE
        ===================================================== */
 
     marker
@@ -1724,13 +1796,15 @@
 
 
     /* =====================================================
-       ZOOM SETTINGS
+       ZOOM
        
-       1.0 = furthest out.
-       6.0 = maximum zoom.
+       1 = initial view.
+       6 = maximum.
+       
+       User CANNOT zoom out below 1.
        ===================================================== */
 
-    const START_ZOOM = 1.0;
+    const START_ZOOM = 1;
 
     const MAX_ZOOM = 6;
 
@@ -1740,18 +1814,11 @@
        ===================================================== */
 
     const START_TRANSFORM =
-        d3.zoomIdentity
-            .translate(
-                0,
-                0
-            )
-            .scale(
-                START_ZOOM
-            );
+        d3.zoomIdentity;
 
 
     /* =====================================================
-       ZOOM BEHAVIOR
+       ZOOM BEHAVIOUR
        ===================================================== */
 
     const zoom = d3
@@ -1762,14 +1829,18 @@
             MAX_ZOOM
         ])
 
+        /*
+           Limit panning.
+        */
+
         .translateExtent([
             [
-                -250,
-                -180
+                -100,
+                -80
             ],
             [
-                WIDTH + 250,
-                HEIGHT + 180
+                WIDTH + 100,
+                HEIGHT + 80
             ]
         ])
 
@@ -1788,6 +1859,10 @@
             "zoom",
             function(event) {
 
+                /*
+                   Transform ONLY the geography.
+                */
+
                 mapGroup
                     .attr(
                         "transform",
@@ -1795,8 +1870,13 @@
                     );
 
 
-                positionMarker(
-                    event.transform.k
+                /*
+                   Position the marker independently
+                   using the SAME zoom transform.
+                */
+
+                updateMarker(
+                    event.transform
                 );
 
             }
@@ -1813,7 +1893,7 @@
 
 
     /* =====================================================
-       REMOVE DOUBLE CLICK ZOOM
+       DISABLE DOUBLE CLICK ZOOM
        ===================================================== */
 
     svg.on(
@@ -1823,7 +1903,7 @@
 
 
     /* =====================================================
-       INITIAL VIEW
+       INITIAL MAP POSITION
        ===================================================== */
 
     svg.call(
@@ -1833,7 +1913,7 @@
 
 
     /* =====================================================
-       PLUS BUTTON
+       PLUS
        ===================================================== */
 
     document
@@ -1857,7 +1937,9 @@
 
 
     /* =====================================================
-       MINUS BUTTON
+       MINUS
+       
+       scaleExtent prevents going below 1.
        ===================================================== */
 
     document
@@ -1892,25 +1974,18 @@
             "click",
             function() {
 
-                const point =
-                    projection(
-                        ALONNISOS
-                    );
-
-
-                const targetScale =
-                    3.2;
+                const targetScale = 3.2;
 
 
                 const targetX =
                     WIDTH / 2 -
-                    point[0] *
+                    alonnisosPoint[0] *
                     targetScale;
 
 
                 const targetY =
                     HEIGHT / 2 -
-                    point[1] *
+                    alonnisosPoint[1] *
                     targetScale;
 
 
@@ -1962,14 +2037,20 @@
 
 
     /* =====================================================
-       MAP READY
+       INITIAL MARKER
        ===================================================== */
+
+    updateMarker(
+        d3.zoomIdentity
+    );
+
 
     console.log(
         "Scout Marine Network map loaded."
     );
 
 </script>
+
 
 </body>
 </html>
