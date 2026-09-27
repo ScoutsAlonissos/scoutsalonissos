@@ -1,2410 +1,1058 @@
-```html
 <!DOCTYPE html>
 
 <html lang="en">
-
 <head>
-
-    <meta charset="UTF-8">
-
-    <meta
-        name="viewport"
-        content="width=device-width, initial-scale=1.0"
-    >
-
-    <title>
-        Scout Marine Network | Alonnisos Scouts
-    </title>
-
-    <meta
-        name="description"
-        content="Scout Marine Network — A proposal for a European Scout network connected to Marine Protected Areas, starting from Alonnisos."
-    >
-
-    <link
-        rel="stylesheet"
-        href="../style.css"
-    >
-
-
-    <style>
-
-        /* =========================================================
-           PAGE
-           ========================================================= */
-
-        .marine-page {
-            background:
-                linear-gradient(
-                    180deg,
-                    #071d25 0%,
-                    #0b2b35 45%,
-                    #f4f7f6 45%,
-                    #f4f7f6 100%
-                );
-
-            color: #10242a;
-        }
-
-
-        /* =========================================================
-           HERO
-           ========================================================= */
-
-        .marine-hero {
-            padding: 90px 0 70px;
-            color: white;
-        }
-
-        .marine-hero-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                minmax(0, 1fr)
-                320px;
-
-            gap: 60px;
-
-            align-items: end;
-        }
-
-
-        .marine-eyebrow {
-
-            display: inline-flex;
-
-            align-items: center;
-
-            gap: 9px;
-
-            padding: 7px 12px;
-
-            border: 1px solid rgba(255,255,255,.18);
-
-            border-radius: 999px;
-
-            background: rgba(255,255,255,.06);
-
-            color: #b9e5e7;
-
-            font-size: 12px;
-
-            font-weight: 700;
-
-            letter-spacing: .12em;
-
-            text-transform: uppercase;
-
-            margin-bottom: 22px;
-        }
-
-
-        .marine-eyebrow-dot {
-
-            width: 7px;
-            height: 7px;
-
-            border-radius: 50%;
-
-            background: #67cbd0;
-
-            box-shadow:
-                0 0 12px rgba(103,203,208,.8);
-        }
-
-
-        .marine-hero h1 {
-
-            max-width: 850px;
-
-            margin: 0 0 22px;
-
-            color: white;
-
-            font-size:
-                clamp(42px, 7vw, 82px);
-
-            line-height: .96;
-
-            letter-spacing: -.045em;
-        }
-
-
-        .marine-hero-lead {
-
-            max-width: 750px;
-
-            margin: 0;
-
-            color:
-                rgba(255,255,255,.75);
-
-            font-size:
-                clamp(17px, 2vw, 21px);
-
-            line-height: 1.65;
-        }
-
-
-        .marine-status {
-
-            border-left:
-                1px solid rgba(255,255,255,.2);
-
-            padding-left: 25px;
-        }
-
-
-        .marine-status-label {
-
-            color: #8acdd1;
-
-            font-size: 11px;
-
-            font-weight: 700;
-
-            text-transform: uppercase;
-
-            letter-spacing: .12em;
-
-            margin-bottom: 8px;
-        }
-
-
-        .marine-status strong {
-
-            display: block;
-
-            color: white;
-
-            font-size: 22px;
-
-            margin-bottom: 8px;
-        }
-
-
-        .marine-status p {
-
-            margin: 0;
-
-            color:
-                rgba(255,255,255,.62);
-
-            line-height: 1.6;
-
-            font-size: 14px;
-        }
-
-
-        /* =========================================================
-           MAP SECTION
-           ========================================================= */
-
-        .marine-map-section {
-
-            padding: 20px 0 70px;
-
-            /*
-             * Important:
-             * no blue section underneath the map.
-             */
-            background: transparent;
-        }
-
-
-        .marine-map-shell {
-
-            position: relative;
-
-            display: grid;
-
-            grid-template-columns:
-                minmax(0, 1fr)
-                340px;
-
-            min-height: 650px;
-
-            border-radius: 28px;
-
-            overflow: hidden;
-
-            background: #092832;
-
-            box-shadow:
-                0 25px 70px rgba(0,0,0,.18);
-        }
-
-
-        /* =========================================================
-           MAP AREA
-           ========================================================= */
-
-        .marine-map-area {
-
-            position: relative;
-
-            min-width: 0;
-
-            min-height: 650px;
-
-            background:
-
-                radial-gradient(
-                    circle at 52% 50%,
-                    rgba(39,111,122,.35),
-                    transparent 38%
-                ),
-
-                #08232c;
-        }
-
-
-        #marine-map {
-
-            display: block;
-
-            width: 100%;
-
-            height: 650px;
-
-            cursor: grab;
-
-            touch-action: none;
-        }
-
-
-        #marine-map:active {
-
-            cursor: grabbing;
-        }
-
-
-        /* =========================================================
-           MAP GRAPHICS
-           ========================================================= */
-
-        .map-ocean {
-
-            fill: #08232c;
-        }
-
-
-        .map-grid {
-
-            fill: none;
-
-            stroke:
-                rgba(130,200,207,.09);
-
-            stroke-width: .7;
-        }
-
-
-        .map-country {
-
-            fill: #173e47;
-
-            stroke:
-                rgba(173,221,224,.32);
-
-            stroke-width: .65;
-
-            vector-effect:
-                non-scaling-stroke;
-
-            transition:
-                fill .2s;
-        }
-
-
-        .map-country:hover {
-
-            fill: #20535e;
-        }
-
-
-        /* =========================================================
-           ALONNISOS MARKER
-           ========================================================= */
-
-        .map-location {
-
-            /*
-             * This group is counter-scaled by JS,
-             * so the marker remains visually constant
-             * when the map zooms.
-             */
-
-            pointer-events: none;
-        }
-
-
-        .map-location-ring {
-
-            fill:
-                rgba(93,211,216,.10);
-
-            stroke:
-                rgba(93,211,216,.45);
-
-            stroke-width: 1.5;
-
-            vector-effect:
-                non-scaling-stroke;
-        }
-
-
-        .map-location-pulse {
-
-            fill: none;
-
-            stroke: #65d5da;
-
-            stroke-width: 2;
-
-            opacity: .45;
-
-            vector-effect:
-                non-scaling-stroke;
-        }
-
-
-        .map-location-core {
-
-            fill: #73e0e3;
-
-            stroke: white;
-
-            stroke-width: 2;
-
-            vector-effect:
-                non-scaling-stroke;
-        }
-
-
-        .map-location-label {
-
-            fill: white;
-
-            font-size: 14px;
-
-            font-weight: 700;
-
-            pointer-events: none;
-
-            paint-order: stroke;
-
-            stroke: #08232c;
-
-            stroke-width: 4px;
-
-            stroke-linejoin: round;
-        }
-
-
-        .map-location-subtitle {
-
-            fill:
-                rgba(255,255,255,.62);
-
-            font-size: 10px;
-
-            pointer-events: none;
-
-            paint-order: stroke;
-
-            stroke: #08232c;
-
-            stroke-width: 3px;
-
-            stroke-linejoin: round;
-        }
-
-
-        /* =========================================================
-           MAP CONTROLS
-           ========================================================= */
-
-        .marine-map-controls {
-
-            position: absolute;
-
-            top: 18px;
-
-            right: 18px;
-
-            display: flex;
-
-            flex-direction: column;
-
-            gap: 7px;
-
-            z-index: 10;
-        }
-
-
-        .marine-map-controls button {
-
-            width: 44px;
-
-            height: 44px;
-
-            border:
-                1px solid rgba(255,255,255,.14);
-
-            border-radius: 11px;
-
-            background:
-                rgba(8,35,44,.88);
-
-            color: white;
-
-            font-size: 20px;
-
-            cursor: pointer;
-
-            backdrop-filter:
-                blur(8px);
-
-            transition:
-                background .2s,
-                transform .15s;
-        }
-
-
-        .marine-map-controls button:hover {
-
-            background:
-                rgba(28,75,84,.95);
-
-            transform:
-                translateY(-1px);
-        }
-
-
-        .marine-map-controls button:focus-visible {
-
-            outline:
-                3px solid #73e0e3;
-
-            outline-offset: 2px;
-        }
-
-
-        /* =========================================================
-           MAP CAPTION
-           ========================================================= */
-
-        .marine-map-caption {
-
-            position: absolute;
-
-            left: 20px;
-
-            bottom: 18px;
-
-            color:
-                rgba(255,255,255,.42);
-
-            font-size: 11px;
-
-            letter-spacing: .06em;
-
-            text-transform: uppercase;
-
-            pointer-events: none;
-        }
-
-
-        /* =========================================================
-           MAP PANEL
-           ========================================================= */
-
-        .marine-panel {
-
-            position: relative;
-
-            z-index: 2;
-
-            padding: 34px 30px;
-
-            background: #f8faf9;
-
-            border-left:
-                1px solid rgba(255,255,255,.08);
-        }
-
-
-        .marine-panel-kicker {
-
-            color: #287982;
-
-            font-size: 11px;
-
-            font-weight: 800;
-
-            letter-spacing: .13em;
-
-            text-transform: uppercase;
-
-            margin-bottom: 10px;
-        }
-
-
-        .marine-panel h2 {
-
-            margin: 0 0 15px;
-
-            font-size: 29px;
-
-            line-height: 1.08;
-
-            color: #102a31;
-        }
-
-
-        .marine-panel p {
-
-            color: #52676c;
-
-            line-height: 1.7;
-
-            font-size: 15px;
-        }
-
-
-        .marine-panel-divider {
-
-            height: 1px;
-
-            background: #dce5e5;
-
-            margin: 25px 0;
-        }
-
-
-        .marine-facts {
-
-            display: grid;
-
-            grid-template-columns:
-                1fr 1fr;
-
-            gap: 10px;
-        }
-
-
-        .marine-fact {
-
-            padding: 14px;
-
-            background: #edf4f3;
-
-            border-radius: 12px;
-        }
-
-
-        .marine-fact strong {
-
-            display: block;
-
-            color: #123b42;
-
-            font-size: 18px;
-
-            margin-bottom: 3px;
-        }
-
-
-        .marine-fact span {
-
-            color: #687b7f;
-
-            font-size: 11px;
-
-            line-height: 1.4;
-        }
-
-
-        .marine-panel h3 {
-
-            margin: 26px 0 10px;
-
-            color: #17383e;
-
-            font-size: 16px;
-        }
-
-
-        .marine-panel ul {
-
-            padding-left: 19px;
-
-            margin: 0;
-
-            color: #52676c;
-
-            line-height: 1.75;
-
-            font-size: 14px;
-        }
-
-
-        .marine-proposal {
-
-            margin-top: 26px;
-
-            padding: 17px;
-
-            border-left:
-                3px solid #2b858d;
-
-            background: #edf5f4;
-
-            border-radius:
-                0 10px 10px 0;
-        }
-
-
-        .marine-proposal strong {
-
-            display: block;
-
-            color: #17383e;
-
-            margin-bottom: 6px;
-
-            font-size: 13px;
-        }
-
-
-        .marine-proposal p {
-
-            margin: 0;
-
-            font-size: 13px;
-
-            line-height: 1.55;
-        }
-
-
-        /* =========================================================
-           CONTENT
-           ========================================================= */
-
-        .marine-content {
-
-            padding: 95px 0;
-
-            background: #f4f7f6;
-        }
-
-
-        .marine-content-header {
-
-            max-width: 760px;
-
-            margin-bottom: 50px;
-        }
-
-
-        .marine-content-header .section-label {
-
-            margin-bottom: 12px;
-        }
-
-
-        .marine-content-header h2 {
-
-            margin-bottom: 18px;
-        }
-
-
-        .marine-content-header p {
-
-            color: #52676c;
-
-            line-height: 1.75;
-        }
-
-
-        .marine-idea-grid {
-
-            display: grid;
-
-            grid-template-columns:
-                repeat(3, 1fr);
-
-            gap: 18px;
-        }
-
-
-        .marine-idea {
-
-            padding: 28px;
-
-            border-radius: 18px;
-
-            background: white;
-
-            border:
-                1px solid #e1e8e7;
-        }
-
-
-        .marine-idea-number {
-
-            color: #2b858d;
-
-            font-size: 12px;
-
-            font-weight: 800;
-
-            letter-spacing: .12em;
-
-            margin-bottom: 18px;
-        }
-
-
-        .marine-idea h3 {
-
-            margin-bottom: 10px;
-
-            color: #17383e;
-        }
-
-
-        .marine-idea p {
-
-            margin: 0;
-
-            color: #617477;
-
-            line-height: 1.7;
-
-            font-size: 14px;
-        }
-
-
-        .marine-next {
-
-            margin-top: 45px;
-
-            padding: 35px;
-
-            border-radius: 20px;
-
-            background: #0b3039;
-
-            color: white;
-        }
-
-
-        .marine-next h2 {
-
-            margin-bottom: 12px;
-
-            color: white;
-        }
-
-
-        .marine-next p {
-
-            max-width: 800px;
-
-            margin: 0;
-
-            color:
-                rgba(255,255,255,.68);
-
-            line-height: 1.7;
-        }
-
-
-        .marine-back {
-
-            margin-top: 35px;
-        }
-
-
-        /* =========================================================
-           RESPONSIVE
-           ========================================================= */
-
-        @media (max-width: 950px) {
-
-            .marine-hero-grid {
-
-                grid-template-columns: 1fr;
-
-                gap: 30px;
-            }
-
-
-            .marine-status {
-
-                border-left: 0;
-
-                border-top:
-                    1px solid rgba(255,255,255,.18);
-
-                padding-left: 0;
-
-                padding-top: 20px;
-            }
-
-
-            .marine-map-shell {
-
-                grid-template-columns: 1fr;
-            }
-
-
-            .marine-panel {
-
-                border-left: 0;
-
-                border-top:
-                    1px solid #dce5e5;
-            }
-
-
-            .marine-idea-grid {
-
-                grid-template-columns: 1fr;
-            }
-
-        }
-
-
-        @media (max-width: 650px) {
-
-            .marine-hero {
-
-                padding: 60px 0 50px;
-            }
-
-
-            .marine-map-section {
-
-                padding-top: 0;
-            }
-
-
-            .marine-map-shell {
-
-                border-radius: 18px;
-            }
-
-
-            .marine-map-area,
-            #marine-map {
-
-                min-height: 440px;
-
-                height: 440px;
-            }
-
-
-            .marine-panel {
-
-                padding:
-                    27px 22px;
-            }
-
-
-            .marine-content {
-
-                padding: 65px 0;
-            }
-
-
-            .marine-next {
-
-                padding: 25px;
-            }
-
-        }
-
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Scout Marine Network | Alonnisos Scouts</title>
+
+<meta
+name="description"
+content="The proposed Scout Marine Network, initiated by the 1st Scout System of Alonnisos."
+
+>
+
+  <link rel="stylesheet" href="../style.css">
+
+  <!-- Leaflet -->
+
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+    integrity="sha256-p4NxAoJBhIINfQ3eD5eX7j7H5VY8p6M6Y2fF5H5Y5o="
+    crossorigin=""
+  >
+
+  <style>
+    /* =========================================================
+       MARINE NETWORK PAGE
+       ========================================================= */
+
+    .marine-page {
+      background: #f4f7f6;
+      color: #10252b;
+      min-height: 100vh;
+    }
+
+    /* =========================================================
+       HERO
+       ========================================================= */
+
+    .marine-hero {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 85% 20%, rgba(39, 144, 155, 0.18), transparent 30%),
+        linear-gradient(135deg, #061b22 0%, #0b2d37 55%, #0d3943 100%);
+      color: #fff;
+      padding: 90px 20px 85px;
+    }
+
+    .marine-hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .marine-kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 8px 13px;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 999px;
+      background: rgba(255,255,255,0.06);
+      color: rgba(255,255,255,0.8);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 22px;
+    }
+
+    .marine-kicker::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #58c6c8;
+      box-shadow: 0 0 0 5px rgba(88,198,200,0.12);
+    }
+
+    .marine-hero h1 {
+      max-width: 850px;
+      margin: 0 0 22px;
+      font-size: clamp(2.7rem, 7vw, 5.5rem);
+      line-height: 0.95;
+      letter-spacing: -0.045em;
+    }
+
+    .marine-hero-lead {
+      max-width: 760px;
+      margin: 0;
+      color: rgba(255,255,255,0.76);
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      line-height: 1.75;
+    }
+
+    .marine-status {
+      display: inline-flex;
+      margin-top: 30px;
+      padding: 11px 15px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.88);
+      font-size: 0.85rem;
+    }
+
+    /* =========================================================
+       GENERAL SECTIONS
+       ========================================================= */
+
+    .marine-section-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 85px 20px;
+    }
+
+    .marine-section-title {
+      max-width: 760px;
+      margin-bottom: 38px;
+    }
+
+    .marine-section-title span {
+      display: block;
+      margin-bottom: 10px;
+      color: #278b91;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .marine-section-title h2 {
+      margin: 0 0 14px;
+      color: #10252b;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: -0.035em;
+    }
+
+    .marine-section-title p {
+      margin: 0;
+      color: #607278;
+      font-size: 1rem;
+      line-height: 1.7;
+    }
+
+    /* =========================================================
+       MAP SECTION
+       ========================================================= */
+
+    .marine-map-section {
+      background: #f4f7f6;
+    }
+
+    .marine-map-layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.55fr) minmax(300px, 0.75fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .marine-map-card {
+      overflow: hidden;
+      border: 1px solid rgba(16,37,43,0.10);
+      border-radius: 22px;
+      background: #0c1e24;
+      box-shadow: 0 20px 55px rgba(16,37,43,0.12);
+    }
+
+    .marine-map-topbar {
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 18px;
+      background: #102b33;
+      color: rgba(255,255,255,0.72);
+      font-size: 0.75rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .marine-map-topbar strong {
+      color: #70d0d1;
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    /* The actual Leaflet map */
+    #europe-map {
+      width: 100%;
+      height: 610px;
+      background: #101d22;
+    }
+
+    .marine-map-legend {
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      padding: 0 18px;
+      background: #102b33;
+      color: rgba(255,255,255,0.65);
+      font-size: 0.75rem;
+    }
+
+    .marine-map-legend-dot {
+      width: 9px;
+      height: 9px;
+      display: inline-block;
+      flex: 0 0 9px;
+      border-radius: 50%;
+      background: #61d1d2;
+      box-shadow: 0 0 0 5px rgba(97,209,210,0.12);
+    }
+
+    /* =========================================================
+       FIXED-SIZE ALONNISOS MARKER
+       ========================================================= */
+
+    .alonnisos-marker-wrapper {
+      background: transparent !important;
+      border: 0 !important;
+    }
+
+    .alonnisos-marker {
+      position: relative;
+      width: 150px;
+      height: 80px;
+      pointer-events: none;
+    }
+
+    .alonnisos-marker .marker-dot {
+      position: absolute;
+      left: 12px;
+      top: 31px;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      background: #69d4d5;
+      border: 3px solid #ffffff;
+      box-shadow:
+        0 0 0 6px rgba(105,212,213,0.16),
+        0 5px 18px rgba(0,0,0,0.35);
+      z-index: 3;
+    }
+
+    .alonnisos-marker .marker-pulse {
+      position: absolute;
+      left: 4px;
+      top: 23px;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      border: 1px solid rgba(105,212,213,0.35);
+      animation: marinePulse 2.4s ease-out infinite;
+      z-index: 1;
+    }
+
+    .alonnisos-marker .marker-label {
+      position: absolute;
+      left: 39px;
+      top: 19px;
+      white-space: nowrap;
+      color: #ffffff;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-shadow:
+        0 1px 3px rgba(0,0,0,0.9),
+        0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .alonnisos-marker .marker-label small {
+      display: block;
+      margin-top: 4px;
+      color: rgba(255,255,255,0.72);
+      font-size: 9px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    @keyframes marinePulse {
+      0% {
+        transform: scale(0.7);
+        opacity: 0.8;
+      }
+      70% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+      100% {
+        transform: scale(1.5);
+        opacity: 0;
+      }
+    }
+
+    /* =========================================================
+       MAP SIDE INFORMATION
+       ========================================================= */
+
+    .marine-map-side {
+      position: sticky;
+      top: 105px;
+    }
+
+    .marine-map-info {
+      padding: 30px;
+      border: 1px solid rgba(16,37,43,0.09);
+      border-radius: 22px;
+      background: #ffffff;
+      box-shadow: 0 15px 40px rgba(16,37,43,0.07);
+    }
+
+    .map-eyebrow {
+      margin-bottom: 8px;
+      color: #278b91;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .marine-map-info h3 {
+      margin: 0 0 15px;
+      color: #10252b;
+      font-size: 2rem;
+      line-height: 1;
+      letter-spacing: -0.03em;
+    }
+
+    .marine-map-info p {
+      margin: 0 0 15px;
+      color: #64767b;
+      font-size: 0.93rem;
+      line-height: 1.7;
+    }
+
+    .marine-map-info p:last-of-type {
+      margin-bottom: 24px;
+    }
+
+    .map-focus-button,
+    .map-europe-button {
+      width: 100%;
+      min-height: 48px;
+      border: 0;
+      border-radius: 10px;
+      cursor: pointer;
+      font: inherit;
+      font-size: 0.82rem;
+      font-weight: 800;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+    }
+
+    .map-focus-button {
+      background: #102f38;
+      color: #ffffff;
+    }
+
+    .map-europe-button {
+      margin-top: 9px;
+      background: #edf3f2;
+      color: #21444c;
+    }
+
+    .map-focus-button:hover,
+    .map-europe-button:hover {
+      transform: translateY(-1px);
+      opacity: 0.9;
+    }
+
+    /* =========================================================
+       CONTENT CARDS
+       ========================================================= */
+
+    .marine-content-section {
+      background: #ffffff;
+    }
+
+    .marine-content-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .marine-content-card {
+      padding: 28px;
+      border: 1px solid rgba(16,37,43,0.08);
+      border-radius: 18px;
+      background: #f8faf9;
+    }
+
+    .marine-content-card-number {
+      margin-bottom: 35px;
+      color: #278b91;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.12em;
+    }
+
+    .marine-content-card h3 {
+      margin: 0 0 10px;
+      color: #10252b;
+      font-size: 1.35rem;
+    }
+
+    .marine-content-card p {
+      margin: 0;
+      color: #68797e;
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    .marine-next-step {
+      margin-top: 18px;
+      padding: 34px;
+      border-radius: 20px;
+      background: #102f38;
+      color: #ffffff;
+    }
+
+    .marine-next-step h3 {
+      margin: 0 0 12px;
+      font-size: 1.5rem;
+    }
+
+    .marine-next-step p {
+      max-width: 800px;
+      margin: 0;
+      color: rgba(255,255,255,0.72);
+      line-height: 1.75;
+    }
+
+    /* =========================================================
+       LEAFLET CLEANUP
+       ========================================================= */
+
+    .leaflet-container {
+      font-family: inherit;
+    }
+
+    .leaflet-control-zoom {
+      border: 0 !important;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.25) !important;
+    }
+
+    .leaflet-control-zoom a {
+      background: rgba(16,43,51,0.92) !important;
+      color: #ffffff !important;
+      border: 0 !important;
+    }
+
+    .leaflet-control-zoom a:hover {
+      background: rgba(28,66,76,0.98) !important;
+    }
+
+    .leaflet-control-attribution {
+      background: rgba(8,22,27,0.72) !important;
+      color: rgba(255,255,255,0.55) !important;
+    }
+
+    .leaflet-control-attribution a {
+      color: rgba(255,255,255,0.72) !important;
+    }
+
+    .leaflet-popup-content-wrapper,
+    .leaflet-popup-tip {
+      background: #102b33;
+      color: #ffffff;
+    }
+
+    .leaflet-popup-content {
+      margin: 14px 16px;
+      line-height: 1.5;
+    }
+
+    .marine-popup-title {
+      margin-bottom: 4px;
+      font-weight: 800;
+      font-size: 1rem;
+    }
+
+    .marine-popup-text {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.78rem;
+    }
+
+    /* =========================================================
+       RESPONSIVE
+       ========================================================= */
+
+    @media (max-width: 900px) {
+
+      .marine-map-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .marine-map-side {
+        position: static;
+      }
+
+      .marine-content-grid {
+        grid-template-columns: 1fr;
+      }
+
+      #europe-map {
+        height: 520px;
+      }
+    }
+
+    @media (max-width: 600px) {
+
+      .marine-hero {
+        padding: 70px 18px 65px;
+      }
+
+      .marine-section-inner {
+        padding: 65px 18px;
+      }
+
+      #europe-map {
+        height: 470px;
+      }
+
+      .marine-map-info {
+        padding: 24px;
+      }
+    }
+  </style>
 
 </head>
 
-
 <body>
 
+  <div class="marine-page">
 
-<header>
+```
+<!-- =====================================================
+     NAVIGATION
+     ===================================================== -->
 
-    <nav>
+<header class="site-header">
+  <nav class="nav">
+    <a href="../" class="logo">
+      1ο ΣΥΣΤΗΜΑ ΠΡΟΣΚΟΠΩΝ ΑΛΟΝΝΗΣΟΥ
+    </a>
 
-        <a href="../" class="logo">
+    <div class="nav-links">
+      <a href="../#about">About</a>
+      <a href="../#activities">Activities</a>
+      <a href="marine.html">Marine Network</a>
+      <a href="../#history">History</a>
+      <a href="../#gallery">Photos</a>
+      <a href="../#contact">Contact</a>
 
-            🏕️ Alonnisos Scouts
-
-            <span>
-                1st Alonnisos Scout Group
-            </span>
-
-        </a>
-
-
-        <div class="nav-right">
-
-            <ul class="nav-links">
-
-                <li>
-                    <a href="../#about">
-                        About
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../#activities">
-                        Activities
-                    </a>
-                </li>
-
-                <li>
-                    <a
-                        href="marine.html"
-                        class="active"
-                    >
-                        Marine Network
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../#history">
-                        History
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../#gallery">
-                        Photos
-                    </a>
-                </li>
-
-                <li>
-                    <a href="../#contact">
-                        Contact
-                    </a>
-                </li>
-
-            </ul>
-
-
-            <div class="language-picker">
-
-                <a href="../gr/marine.html">
-                    GR
-                </a>
-
-                <span>|</span>
-
-                <a
-                    href="marine.html"
-                    class="active"
-                >
-                    EN
-                </a>
-
-            </div>
-
-        </div>
-
-    </nav>
-
+      <a href="../gr/marine.html">GR</a>
+      <a href="marine.html">EN</a>
+    </div>
+  </nav>
 </header>
 
 
-<main class="marine-page">
+<!-- =====================================================
+     HERO
+     ===================================================== -->
 
+<section class="marine-hero">
 
-    <!-- =====================================================
-         HERO
-         ===================================================== -->
+  <div class="marine-hero-inner">
 
-    <section class="marine-hero">
+    <div class="marine-kicker">
+      New initiative
+    </div>
 
-        <div class="container">
+    <h1>
+      Scout Marine Network
+    </h1>
 
-            <div class="marine-hero-grid">
-
-
-                <div>
-
-                    <div class="marine-eyebrow">
-
-                        <span
-                            class="marine-eyebrow-dot"
-                        ></span>
-
-                        New initiative
-
-                    </div>
-
-
-                    <h1>
-
-                        Scout Marine
-                        Network
-
-                    </h1>
-
-
-                    <p class="marine-hero-lead">
-
-                        A proposal to create a European network
-                        of Scouts who live, work and learn in
-                        and around Marine Protected Areas.
-
-                    </p>
-
-                </div>
-
-
-                <div class="marine-status">
-
-                    <div class="marine-status-label">
-
-                        Initiative status
-
-                    </div>
-
-
-                    <strong>
-
-                        Starting from Alonnisos
-
-                    </strong>
-
-
-                    <p>
-
-                        The network is currently a proposal
-                        under development. Alonnisos is the
-                        first and only location shown on the
-                        map at this stage.
-
-                    </p>
-
-                </div>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         MAP
-         ===================================================== -->
-
-    <section class="marine-map-section">
-
-        <div class="container">
-
-
-            <div class="marine-map-shell">
-
-
-                <!-- MAP -->
-
-                <div class="marine-map-area">
-
-
-                    <svg
-                        id="marine-map"
-                        viewBox="0 0 900 650"
-                        role="img"
-                        aria-label="Interactive map of Europe and Alonnisos"
-                    >
-                    </svg>
-
-
-                    <!-- MAP CONTROLS -->
-
-                    <div class="marine-map-controls">
-
-
-                        <button
-                            type="button"
-                            id="marine-plus"
-                            aria-label="Zoom in"
-                        >
-                            +
-                        </button>
-
-
-                        <button
-                            type="button"
-                            id="marine-minus"
-                            aria-label="Zoom out"
-                        >
-                            −
-                        </button>
-
-
-                        <button
-                            type="button"
-                            id="marine-focus"
-                            aria-label="Focus on Alonnisos"
-                        >
-                            ◎
-                        </button>
-
-
-                        <button
-                            type="button"
-                            id="marine-reset"
-                            aria-label="Reset map"
-                        >
-                            ↺
-                        </button>
-
-
-                    </div>
-
-
-                    <div class="marine-map-caption">
-
-                        Europe · Scout Marine Network ·
-                        1 location
-
-                    </div>
-
-
-                </div>
-
-
-
-                <!-- INFORMATION PANEL -->
-
-                <aside class="marine-panel">
-
-
-                    <div class="marine-panel-kicker">
-
-                        Starting point
-
-                    </div>
-
-
-                    <h2>
-                        Alonnisos
-                    </h2>
-
-
-                    <p>
-
-                        Alonnisos is the natural starting point
-                        of this initiative. The experience of
-                        the 1st Alonnisos Scout Group within the
-                        National Marine Park of Alonissos and
-                        Northern Sporades provides the foundation
-                        for the idea of a European network.
-
-                    </p>
-
-
-                    <div class="marine-panel-divider"></div>
-
-
-                    <div class="marine-facts">
-
-
-                        <div class="marine-fact">
-
-                            <strong>
-                                01
-                            </strong>
-
-                            <span>
-                                proposed starting location
-                            </span>
-
-                        </div>
-
-
-                        <div class="marine-fact">
-
-                            <strong>
-                                2,315 km²
-                            </strong>
-
-                            <span>
-                                approximate area of the
-                                National Marine Park
-                            </span>
-
-                        </div>
-
-
-                    </div>
-
-
-                    <h3>
-                        National Marine Park
-                    </h3>
-
-
-                    <ul>
-
-                        <li>
-                            Alonissos and the Northern Sporades
-                        </li>
-
-                        <li>
-                            Protected marine and terrestrial environment
-                        </li>
-
-                        <li>
-                            Areas with different protection regimes
-                        </li>
-
-                        <li>
-                            Environmental education and awareness
-                        </li>
-
-                    </ul>
-
-
-                    <div class="marine-proposal">
-
-
-                        <strong>
-                            What the map shows today
-                        </strong>
-
-
-                        <p>
-
-                            No other European Scout groups or areas
-                            are presented as network members yet.
-                            The map will grow when real partnerships
-                            and confirmed participation are established.
-
-                        </p>
-
-
-                    </div>
-
-
-                </aside>
-
-
-            </div>
-
-        </div>
-
-    </section>
-
-
-
-    <!-- =====================================================
-         IDEA
-         ===================================================== -->
-
-    <section class="marine-content">
-
-        <div class="container">
-
-
-            <div class="marine-content-header">
-
-
-                <div class="section-label">
-                    The idea
-                </div>
-
-
-                <h2 class="section-title">
-
-                    From one island
-                    to a European network.
-
-                </h2>
-
-
-                <p>
-
-                    The proposal is to create a small and
-                    meaningful core of Scout Groups from
-                    different European countries, connected
-                    to Marine Protected Areas.
-
-                </p>
-
-
-            </div>
-
-
-
-            <div class="marine-idea-grid">
-
-
-                <article class="marine-idea">
-
-                    <div class="marine-idea-number">
-                        01 · CONNECT
-                    </div>
-
-
-                    <h3>
-                        Meet and learn from each other
-                    </h3>
-
-
-                    <p>
-
-                        Scout Groups from different European
-                        regions can connect, exchange experiences
-                        and share how the sea influences the life
-                        of their local communities.
-
-                    </p>
-
-                </article>
-
-
-
-                <article class="marine-idea">
-
-                    <div class="marine-idea-number">
-                        02 · ACT
-                    </div>
-
-
-                    <h3>
-                        Act in our own places
-                    </h3>
-
-
-                    <p>
-
-                        Each participating group could carry
-                        out an activity in its own Marine
-                        Protected Area, following a shared
-                        theme while adapting it to local needs.
-
-                    </p>
-
-                </article>
-
-
-
-                <article class="marine-idea">
-
-                    <div class="marine-idea-number">
-                        03 · SHARE
-                    </div>
-
-
-                    <h3>
-                        Share what we learn
-                    </h3>
-
-
-                    <p>
-
-                        Activities, experiences and results
-                        can be documented and exchanged,
-                        gradually creating a shared body
-                        of knowledge and good practice.
-
-                    </p>
-
-                </article>
-
-
-            </div>
-
-
-
-            <div class="marine-next">
-
-
-                <h2>
-                    The next step
-                </h2>
-
-
-                <p>
-
-                    The proposal is to begin small, with a few
-                    Scout Groups and clear shared objectives.
-                    Over time, the network could develop into
-                    a stable European cooperation with joint
-                    activities, online meetings, youth exchanges,
-                    educational activities and international
-                    gatherings.
-
-                </p>
-
-
-            </div>
-
-
-
-            <div class="marine-back">
-
-                <a
-                    href="../"
-                    class="button button-primary"
-                >
-                    ← Back to homepage
-                </a>
-
-            </div>
-
-
-        </div>
-
-    </section>
-
-
-</main>
-
-
-
-<footer>
-
-    <p>
-
-        <strong>
-            1st Alonnisos Scout Group
-        </strong>
-
+    <p class="marine-hero-lead">
+      A proposed European network connecting Scout Groups from
+      islands and coastal areas connected with Marine Protected Areas,
+      starting from Alonnisos.
     </p>
 
+    <div class="marine-status">
+      Proposed initiative · Starting from Alonnisos
+    </div>
 
-    <p>
+  </div>
 
-        © 2026 Alonnisos Scouts
+</section>
 
-    </p>
+
+<!-- =====================================================
+     MAP
+     ===================================================== -->
+
+<section class="marine-map-section" id="map">
+
+  <div class="marine-section-inner">
+
+    <div class="marine-section-title">
+      <span>The map</span>
+
+      <h2>
+        Where the idea starts
+      </h2>
+
+      <p>
+        The network has not started yet. For now, the map shows only
+        the proposed starting point in Alonnisos.
+      </p>
+    </div>
+
+
+    <div class="marine-map-layout">
+
+      <!-- MAP -->
+
+      <div class="marine-map-card">
+
+        <div class="marine-map-topbar">
+          <span>Europe</span>
+          <strong>1 proposed starting point</strong>
+        </div>
+
+        <div id="europe-map"></div>
+
+        <div class="marine-map-legend">
+          <span class="marine-map-legend-dot"></span>
+          Proposed starting point
+        </div>
+
+      </div>
+
+
+      <!-- INFORMATION -->
+
+      <aside class="marine-map-side">
+
+        <div class="marine-map-info">
+
+          <div class="map-eyebrow">
+            Current starting point
+          </div>
+
+          <h3>
+            Alonnisos
+          </h3>
+
+          <p>
+            The proposed Marine Network begins with the
+            1st Scout System of Alonnisos, connected with the
+            National Marine Park of Alonissos – Northern Sporades.
+          </p>
+
+          <p>
+            The network has not launched yet. No other Scout Group
+            or location is shown as a participating member at this stage.
+          </p>
+
+          <button
+            id="focus-alonnisos"
+            class="map-focus-button"
+            type="button"
+          >
+            Focus on Alonnisos
+          </button>
+
+          <button
+            id="focus-europe"
+            class="map-europe-button"
+            type="button"
+          >
+            Show Europe
+          </button>
+
+        </div>
+
+      </aside>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     IDEA
+     ===================================================== -->
+
+<section class="marine-content-section">
+
+  <div class="marine-section-inner">
+
+    <div class="marine-section-title">
+
+      <span>The idea</span>
+
+      <h2>
+        Connecting Scouts through the sea
+      </h2>
+
+      <p>
+        The proposed network is intended to create a stable space
+        where Scout Groups connected with Marine Protected Areas
+        can communicate, exchange experience and develop common
+        environmental actions.
+      </p>
+
+    </div>
+
+
+    <div class="marine-content-grid">
+
+      <article class="marine-content-card">
+
+        <div class="marine-content-card-number">
+          01 · CONNECT
+        </div>
+
+        <h3>
+          Meet
+        </h3>
+
+        <p>
+          Connect Scout Groups from European islands and coastal
+          regions that are directly connected with Marine Protected
+          Areas.
+        </p>
+
+      </article>
+
+
+      <article class="marine-content-card">
+
+        <div class="marine-content-card-number">
+          02 · ACT
+        </div>
+
+        <h3>
+          Protect
+        </h3>
+
+        <p>
+          Exchange ideas and develop environmental education,
+          awareness and practical activities connected with the
+          marine environment.
+        </p>
+
+      </article>
+
+
+      <article class="marine-content-card">
+
+        <div class="marine-content-card-number">
+          03 · SHARE
+        </div>
+
+        <h3>
+          Learn
+        </h3>
+
+        <p>
+          Share experiences with other young people, scientists,
+          environmental organisations, local authorities and
+          protected-area management bodies.
+        </p>
+
+      </article>
+
+    </div>
+
+
+    <div class="marine-next-step">
+
+      <h3>
+        The first step
+      </h3>
+
+      <p>
+        The proposed first common action is simple: each participating
+        Scout System carries out an activity in its own Marine Protected
+        Area, documents the experience and shares the results with the
+        other groups. From there, the network could gradually develop
+        into online meetings, youth exchanges, educational activities,
+        scientific and environmental partnerships, and future
+        transnational meetings or camps.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+     ===================================================== -->
+
+<footer class="site-footer">
+
+  <div class="footer-inner">
+
+    <div>
+      <strong>
+        1ο Σύστημα Προσκόπων Αλοννήσου
+      </strong>
+    </div>
+
+    <div>
+      Scout Marine Network · Proposed initiative
+    </div>
+
+  </div>
 
 </footer>
+```
+
+  </div>
+
+  <!-- =======================================================
+       LEAFLET
+       ======================================================= -->
+
+  <script
+    src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+    integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+    crossorigin=""
+  ></script>
+
+  <script>
+
+    /* =========================================================
+       MAP SETUP
+       ========================================================= */
+
+    const alonnisos = [39.2776, 24.1355];
+
+    /*
+      This is deliberately a regional Europe / Mediterranean
+      viewing area rather than a world map.
+
+      The map can zoom in considerably, but cannot zoom out
+      to a full-world view.
+    */
+
+    const europeBounds = L.latLngBounds(
+      [34.0, -10.0],
+      [70.0, 40.0]
+    );
 
 
+    const map = L.map("europe-map", {
 
-<!-- =========================================================
-     D3 MAP
-     ========================================================= -->
+      zoomControl: true,
 
-<script type="module">
+      /*
+        Higher minimum zoom = less ability to zoom out.
+      */
+      minZoom: 5.0,
 
-(async function () {
+      /*
+        Maximum zoom can still go close to Alonnisos.
+      */
+      maxZoom: 13,
+
+      /*
+        Keep the map constrained to Europe / Mediterranean.
+      */
+      maxBounds: europeBounds.pad(0.10),
+
+      maxBoundsViscosity: 1.0,
+
+      scrollWheelZoom: true,
+
+      doubleClickZoom: true,
+
+      dragging: true,
+
+      zoomAnimation: true
+
+    });
 
 
-    const svgElement =
-        document.getElementById(
-            "marine-map"
+    /* =========================================================
+       DARK MAP TILES
+       ========================================================= */
+
+    L.tileLayer(
+      "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
+      {
+        maxZoom: 19,
+
+        attribution:
+          '&copy; OpenStreetMap contributors &copy; CARTO'
+      }
+    ).addTo(map);
+
+
+    /* =========================================================
+       INITIAL VIEW
+       =========================================================
+
+       This is intentionally much closer than the old
+       full-Europe/world view.
+
+       The user sees Europe + Mediterranean, with Greece
+       already clearly visible.
+    */
+
+    const europeView = [49.5, 13.5];
+    const europeZoom = 5.2;
+
+    map.setView(europeView, europeZoom);
+
+
+    /* =========================================================
+       ALONNISOS MARKER
+       =========================================================
+
+       IMPORTANT:
+
+       This marker uses Leaflet's DivIcon.
+
+       Its dimensions are in CSS pixels, NOT geographic units.
+
+       Therefore the marker and label remain the same visual
+       size while the map zooms.
+
+       Leaflet itself handles the geographic positioning.
+       We do NOT manually translate the marker.
+    */
+
+    const alonnisosIcon = L.divIcon({
+
+      className: "alonnisos-marker-wrapper",
+
+      html: `
+        <div class="alonnisos-marker">
+
+          <span class="marker-pulse"></span>
+
+          <span class="marker-dot"></span>
+
+          <span class="marker-label">
+            Alonnisos
+            <small>Marine Network starting point</small>
+          </span>
+
+        </div>
+      `,
+
+      iconSize: [150, 80],
+
+      /*
+        This is the actual geographic anchor.
+        The point is 12px from the left and 39px from the top.
+      */
+      iconAnchor: [20, 39],
+
+      popupAnchor: [0, -35]
+
+    });
+
+
+    const alonnisosMarker = L.marker(
+      alonnisos,
+      {
+        icon: alonnisosIcon,
+        keyboard: false
+      }
+    ).addTo(map);
+
+
+    /* =========================================================
+       POPUP
+       ========================================================= */
+
+    alonnisosMarker.bindPopup(`
+      <div class="marine-popup-title">
+        Alonnisos
+      </div>
+
+      <div class="marine-popup-text">
+        Proposed starting point of the Scout Marine Network.
+      </div>
+    `);
+
+
+    /* =========================================================
+       FOCUS BUTTON
+       ========================================================= */
+
+    document
+      .getElementById("focus-alonnisos")
+      .addEventListener("click", function () {
+
+        map.flyTo(
+          alonnisos,
+          9,
+          {
+            duration: 1.2,
+            easeLinearity: 0.25
+          }
         );
 
-
-    if (!svgElement) {
-        return;
-    }
-
-
-    try {
-
-
-        /*
-         * Load D3, TopoJSON and the
-         * simplified world map.
-         */
-
-        const [
-
-            d3,
-            topojson,
-            worldModule
-
-        ] = await Promise.all([
-
-
-            import(
-                "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm"
-            ),
-
-
-            import(
-                "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm"
-            ),
-
-
-            import(
-                "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json/+esm"
-            )
-
-
-        ]);
-
-
-        const world =
-            worldModule.default;
-
-
-        /*
-         * Convert TopoJSON to GeoJSON.
-         */
-
-        const countries =
-            topojson.feature(
-                world,
-                world.objects.countries
-            ).features;
-
-
-        /*
-         * European country IDs.
-         *
-         * We intentionally keep the map focused
-         * on Europe rather than showing the world.
-         */
-
-        const europeIds =
-            new Set([
-
-                "8",
-                "20",
-                "40",
-                "56",
-                "70",
-                "100",
-                "112",
-                "191",
-                "196",
-                "203",
-                "208",
-                "233",
-                "246",
-                "250",
-                "268",
-                "276",
-                "300",
-                "348",
-                "372",
-                "376",
-                "380",
-                "398",
-                "428",
-                "438",
-                "440",
-                "442",
-                "470",
-                "492",
-                "499",
-                "528",
-                "578",
-                "616",
-                "620",
-                "642",
-                "643",
-                "674",
-                "688",
-                "703",
-                "705",
-                "724",
-                "752",
-                "756",
-                "792",
-                "804",
-                "807",
-                "826"
-
-            ]);
-
-
-        const europe =
-            countries.filter(
-                country =>
-                    europeIds.has(
-                        String(country.id)
-                    )
-            );
-
-
-        const collection = {
-
-            type:
-                "FeatureCollection",
-
-            features:
-                europe
-
-        };
-
-
-        /*
-         * Europe-focused projection.
-         *
-         * The extent is deliberately smaller
-         * than the previous version.
-         */
-
-        const projection =
-            d3.geoMercator()
-                .fitExtent(
-
-                    [
-                        [55, 35],
-                        [845, 615]
-                    ],
-
-                    collection
-
-                );
-
-
-        const path =
-            d3.geoPath(
-                projection
-            );
-
-
-        const svg =
-            d3.select(
-                svgElement
-            );
-
-
-        /*
-         * Ocean.
-         */
-
-        svg.append("rect")
-
-            .attr(
-                "class",
-                "map-ocean"
-            )
-
-            .attr(
-                "x",
-                0
-            )
-
-            .attr(
-                "y",
-                0
-            )
-
-            .attr(
-                "width",
-                900
-            )
-
-            .attr(
-                "height",
-                650
-            );
-
-
-        /*
-         * Main map group.
-         */
-
-        const mapGroup =
-            svg.append("g");
-
-
-        /*
-         * Geographic grid.
-         */
-
-        const graticule =
-            d3.geoGraticule()
-                .step([
-                    10,
-                    5
-                ]);
-
-
-        mapGroup.append("path")
-
-            .datum(
-                graticule()
-            )
-
-            .attr(
-                "class",
-                "map-grid"
-            )
-
-            .attr(
-                "d",
-                path
-            );
-
-
-        /*
-         * Europe.
-         */
-
-        mapGroup
-
-            .selectAll(
-                ".map-country"
-            )
-
-            .data(
-                europe
-            )
-
-            .join("path")
-
-            .attr(
-                "class",
-                "map-country"
-            )
-
-            .attr(
-                "d",
-                path
-            );
-
-
-        /*
-         * =====================================================
-         * ALONNISOS
-         * =====================================================
-         *
-         * Marker location.
-         *
-         * This is a point representing the Alonnisos
-         * starting point. We do NOT draw an invented
-         * polygon for the MPA.
-         */
-
-        const alonnisos = {
-
-            longitude:
-                23.87,
-
-            latitude:
-                39.15
-
-        };
-
-
-        const point =
-            projection([
-
-                alonnisos.longitude,
-
-                alonnisos.latitude
-
-            ]);
-
-
-        /*
-         * Marker group.
-         *
-         * IMPORTANT:
-         *
-         * This group gets counter-scaled during zoom.
-         * Therefore the pin, circle and text remain
-         * visually the same size.
-         */
-
-        const markerGroup =
-            mapGroup.append("g")
-
-                .attr(
-                    "class",
-                    "map-location"
-                );
-
-
-        /*
-         * Halo.
-         */
-
-        markerGroup
-
-            .append("circle")
-
-            .attr(
-                "class",
-                "map-location-ring"
-            )
-
-            .attr(
-                "cx",
-                point[0]
-            )
-
-            .attr(
-                "cy",
-                point[1]
-            )
-
-            .attr(
-                "r",
-                19
-            );
-
-
-        /*
-         * Animated pulse.
-         */
-
-        const pulse =
-            markerGroup
-
-                .append("circle")
-
-                .attr(
-                    "class",
-                    "map-location-pulse"
-                )
-
-                .attr(
-                    "cx",
-                    point[0]
-                )
-
-                .attr(
-                    "cy",
-                    point[1]
-                )
-
-                .attr(
-                    "r",
-                    12
-                );
-
-
-        function animatePulse() {
-
-
-            pulse
-
-                .attr(
-                    "r",
-                    10
-                )
-
-                .attr(
-                    "opacity",
-                    .65
-                )
-
-                .transition()
-
-                .duration(
-                    1800
-                )
-
-                .attr(
-                    "r",
-                    34
-                )
-
-                .attr(
-                    "opacity",
-                    0
-                )
-
-                .on(
-                    "end",
-                    animatePulse
-                );
-
-
-        }
-
-
-        animatePulse();
-
-
-        /*
-         * Main marker.
-         */
-
-        markerGroup
-
-            .append("circle")
-
-            .attr(
-                "class",
-                "map-location-core"
-            )
-
-            .attr(
-                "cx",
-                point[0]
-            )
-
-            .attr(
-                "cy",
-                point[1]
-            )
-
-            .attr(
-                "r",
-                6
-            );
-
-
-        /*
-         * Marker title.
-         */
-
-        markerGroup
-
-            .append("text")
-
-            .attr(
-                "class",
-                "map-location-label"
-            )
-
-            .attr(
-                "x",
-                point[0] + 15
-            )
-
-            .attr(
-                "y",
-                point[1] - 7
-            )
-
-            .text(
-                "ALONNISOS"
-            );
-
-
-        /*
-         * Marker subtitle.
-         */
-
-        markerGroup
-
-            .append("text")
-
-            .attr(
-                "class",
-                "map-location-subtitle"
-            )
-
-            .attr(
-                "x",
-                point[0] + 15
-            )
-
-            .attr(
-                "y",
-                point[1] + 10
-            )
-
-            .text(
-                "National Marine Park"
-            );
-
-
-        /* =====================================================
-           ZOOM
-           ===================================================== */
-
-
-        /*
-         * Zoom range.
-         *
-         * 1 = normal Europe view.
-         *
-         * 4.2 = close Alonnisos view.
-         *
-         * Users cannot zoom farther out than 1.
-         */
-
-        const MIN_SCALE =
-            1;
-
-        const MAX_SCALE =
-            4.2;
-
-
-        const zoom =
-            d3.zoom()
-
-                .scaleExtent([
-                    MIN_SCALE,
-                    MAX_SCALE
-                ])
-
-                .on(
-                    "zoom",
-                    event => {
-
-
-                        /*
-                         * Move the main map.
-                         */
-
-                        mapGroup.attr(
-                            "transform",
-                            event.transform
-                        );
-
-
-                        /*
-                         * Keep Alonnisos marker
-                         * the same visual size.
-                         *
-                         * If map scale = 2,
-                         * marker scale becomes 0.5.
-                         *
-                         * If map scale = 4,
-                         * marker scale becomes 0.25.
-                         */
-
-                        markerGroup.attr(
-
-                            "transform",
-
-                            `
-                            translate(
-                                ${point[0] * event.transform.k * -1},
-                                ${point[1] * event.transform.k * -1}
-                            )
-                            scale(
-                                ${1 / event.transform.k}
-                            )
-                            translate(
-                                ${point[0]},
-                                ${point[1]}
-                            )
-                            `
-
-                        );
-
-                    }
-                );
-
-
-        /*
-         * Start at Europe view.
-         */
-
-        svg.call(
-            zoom
+        setTimeout(function () {
+          alonnisosMarker.openPopup();
+        }, 900);
+
+      });
+
+
+    /* =========================================================
+       EUROPE BUTTON
+       ========================================================= */
+
+    document
+      .getElementById("focus-europe")
+      .addEventListener("click", function () {
+
+        map.flyTo(
+          europeView,
+          europeZoom,
+          {
+            duration: 1.0,
+            easeLinearity: 0.25
+          }
         );
 
+      });
 
-        svg.call(
-            zoom.transform,
-            d3.zoomIdentity
-        );
 
+    /* =========================================================
+       KEEP MAP INSIDE BOUNDS AFTER RESIZE
+       ========================================================= */
 
-        /*
-         * =====================================================
-         * KEEP MARKER CORRECTLY POSITIONED
-         * =====================================================
-         *
-         * The marker is counter-scaled around its own
-         * geographic point.
-         */
+    window.addEventListener("resize", function () {
 
+      setTimeout(function () {
+        map.invalidateSize();
+      }, 150);
 
-        function updateMarkerTransform(
-            transform
-        ) {
+    });
 
-            const k =
-                transform.k;
-
-
-            const x =
-                transform.x;
-
-
-            const y =
-                transform.y;
-
-
-            markerGroup.attr(
-
-                "transform",
-
-                `
-                translate(
-                    ${x + point[0] * k},
-                    ${y + point[1] * k}
-                )
-                translate(
-                    ${-point[0]},
-                    ${-point[1]}
-                )
-                scale(
-                    ${1 / k}
-                )
-                translate(
-                    ${point[0]},
-                    ${point[1]}
-                )
-                `
-
-            );
-
-        }
-
-
-        /*
-         * Replace the zoom handler with the
-         * correct fixed-marker version.
-         */
-
-        zoom.on(
-            "zoom.fixed-marker",
-            function (event) {
-
-
-                mapGroup.attr(
-                    "transform",
-                    event.transform
-                );
-
-
-                updateMarkerTransform(
-                    event.transform
-                );
-
-            }
-        );
-
-
-        /*
-         * Focus on Alonnisos.
-         */
-
-        function focusAlonnisos() {
-
-
-            const scale =
-                MAX_SCALE;
-
-
-            const x =
-                450 -
-                point[0] * scale;
-
-
-            const y =
-                325 -
-                point[1] * scale;
-
-
-            svg.transition()
-
-                .duration(
-                    700
-                )
-
-                .call(
-
-                    zoom.transform,
-
-                    d3.zoomIdentity
-
-                        .translate(
-                            x,
-                            y
-                        )
-
-                        .scale(
-                            scale
-                        )
-
-                );
-
-        }
-
-
-        /*
-         * Zoom in.
-         */
-
-        document
-
-            .getElementById(
-                "marine-plus"
-            )
-
-            .addEventListener(
-
-                "click",
-
-                function () {
-
-
-                    svg.transition()
-
-                        .duration(
-                            250
-                        )
-
-                        .call(
-
-                            zoom.scaleBy,
-
-                            1.35
-
-                        );
-
-
-                }
-
-            );
-
-
-        /*
-         * Zoom out.
-         */
-
-        document
-
-            .getElementById(
-                "marine-minus"
-            )
-
-            .addEventListener(
-
-                "click",
-
-                function () {
-
-
-                    svg.transition()
-
-                        .duration(
-                            250
-                        )
-
-                        .call(
-
-                            zoom.scaleBy,
-
-                            .74
-
-                        );
-
-
-                }
-
-            );
-
-
-        /*
-         * Focus button.
-         */
-
-        document
-
-            .getElementById(
-                "marine-focus"
-            )
-
-            .addEventListener(
-
-                "click",
-
-                focusAlonnisos
-
-            );
-
-
-        /*
-         * Reset button.
-         */
-
-        document
-
-            .getElementById(
-                "marine-reset"
-            )
-
-            .addEventListener(
-
-                "click",
-
-                function () {
-
-
-                    svg.transition()
-
-                        .duration(
-                            400
-                        )
-
-                        .call(
-
-                            zoom.transform,
-
-                            d3.zoomIdentity
-
-                        );
-
-
-                }
-
-            );
-
-
-    }
-
-
-    catch (error) {
-
-
-        svgElement.innerHTML = `
-
-            <text
-
-                x="450"
-
-                y="300"
-
-                text-anchor="middle"
-
-                fill="white"
-
-                font-size="18"
-
-            >
-
-                The map could not be loaded.
-
-            </text>
-
-        `;
-
-
-        console.error(
-            "Marine Network map error:",
-            error
-        );
-
-
-    }
-
-
-})();
-
-</script>
-
+  </script>
 
 </body>
-
 </html>
-```
