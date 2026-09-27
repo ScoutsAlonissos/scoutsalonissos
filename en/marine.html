@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+```
+<title>Scout Marine Network | Alonnisos Scouts</title>
+
+<meta name="description"
+    content="Scout Marine Network — A Scout network connecting young people with marine conservation, education and responsible use of the sea.">
+
+<link rel="stylesheet" href="../style.css">
+
+<style>
+    .marine-page {
+        padding: 70px 0 90px;
+    }
+
+    .marine-header {
+        max-width: 850px;
+        margin-bottom: 40px;
+    }
+
+    .marine-header .section-label {
+        margin-bottom: 12px;
+    }
+
+    .marine-header h1 {
+        margin-bottom: 20px;
+    }
+
+    .marine-header p {
+        max-width: 720px;
+    }
+
+    .marine-map-layout {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 330px;
+        gap: 24px;
+        align-items: stretch;
+    }
+
+    .marine-map-card,
+    .marine-info {
+        background: #fff;
+        border-radius: 18px;
+        overflow: hidden;
+        border: 1px solid rgba(0, 0, 0, 0.08);
+    }
+
+    .marine-map-wrap {
+        position: relative;
+        min-height: 560px;
+        background: #eef4f4;
+    }
+
+    #marine-map {
+        display: block;
+        width: 100%;
+        height: 560px;
+        cursor: grab;
+    }
+
+    #marine-map:active {
+        cursor: grabbing;
+    }
+
+    .marine-country {
+        fill: #dfe7e8;
+        stroke: #aab7ba;
+        stroke-width: 0.7;
+        vector-effect: non-scaling-stroke;
+        transition: 0.2s;
+    }
+
+    .marine-country:hover {
+        fill: #c5d9da;
+        stroke: #56777b;
+        stroke-width: 1.2;
+    }
+
+    .marine-marker {
+        cursor: pointer;
+    }
+
+    .marine-marker-ring {
+        fill: rgba(28, 112, 120, 0.16);
+        stroke: #1c7078;
+        stroke-width: 2;
+        vector-effect: non-scaling-stroke;
+    }
+
+    .marine-marker-core {
+        fill: #1c7078;
+    }
+
+    .marine-controls {
+        position: absolute;
+        top: 16px;
+        right: 16px;
+        display: flex;
+        flex-direction: column;
+        gap: 7px;
+    }
+
+    .marine-controls button {
+        width: 44px;
+        height: 44px;
+        border: 1px solid rgba(0, 0, 0, 0.12);
+        background: #fff;
+        border-radius: 10px;
+        font-size: 21px;
+        cursor: pointer;
+    }
+
+    .marine-controls button:hover {
+        background: #f1f5f5;
+    }
+
+    .marine-legend {
+        position: absolute;
+        left: 16px;
+        bottom: 16px;
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 10px;
+        padding: 10px 13px;
+        font-size: 13px;
+    }
+
+    .marine-legend-dot {
+        display: inline-block;
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background: #1c7078;
+        margin-right: 7px;
+    }
+
+    .marine-info {
+        padding: 28px;
+    }
+
+    .marine-info-label {
+        color: #1c7078;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+    }
+
+    .marine-info h2 {
+        margin-bottom: 14px;
+    }
+
+    .marine-info p {
+        line-height: 1.7;
+    }
+
+    .marine-info ul {
+        margin: 22px 0;
+        padding-left: 20px;
+        line-height: 1.8;
+    }
+
+    .marine-info-note {
+        padding-top: 18px;
+        border-top: 1px solid rgba(0, 0, 0, 0.1);
+        font-size: 13px;
+        opacity: 0.75;
+        line-height: 1.6;
+    }
+
+    .marine-back {
+        margin-top: 35px;
+    }
+
+    @media (max-width: 850px) {
+        .marine-map-layout {
+            grid-template-columns: 1fr;
+        }
+
+        .marine-map-wrap,
+        #marine-map {
+            min-height: 430px;
+            height: 430px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .marine-page {
+            padding: 45px 0 65px;
+        }
+
+        .marine-info {
+            padding: 22px;
+        }
+
+        .marine-map-wrap,
+        #marine-map {
+            min-height: 360px;
+            height: 360px;
+        }
+    }
+</style>
+```
+
+</head>
+
+<body>
+
+<header>
+    <nav>
+
+```
+    <a href="../" class="logo">
+        🏕️ Alonnisos Scouts
+        <span>1st Alonnisos Scout Group</span>
+    </a>
+
+    <div class="nav-right">
+
+        <ul class="nav-links">
+            <li><a href="../#about">About</a></li>
+            <li><a href="../#activities">Activities</a></li>
+            <li><a href="marine.html">Marine Network</a></li>
+            <li><a href="../#history">History</a></li>
+            <li><a href="../#gallery">Photos</a></li>
+            <li><a href="../#contact">Contact</a></li>
+        </ul>
+
+        <div class="language-picker">
+            <a href="../gr/marine.html">GR</a>
+            <span>|</span>
+            <a href="marine.html" class="active">EN</a>
+        </div>
+
+    </div>
+
+</nav>
+```
+
+</header>
+
+<main class="marine-page">
+
+```
+<div class="container">
+
+    <div class="marine-header">
+
+        <div class="section-label">
+            Our marine initiative
+        </div>
+
+        <h1 class="section-title">
+            Scout Marine Network
+        </h1>
+
+        <p class="section-intro">
+            A network connecting Scouts with the sea,
+            Marine Protected Areas and initiatives dedicated
+            to protecting the marine environment.
+        </p>
+
+    </div>
+
+
+    <div class="marine-map-layout">
+
+        <section class="marine-map-card">
+
+            <div class="marine-map-wrap">
+
+                <svg id="marine-map"
+                     viewBox="0 0 900 620"
+                     role="img"
+                     aria-label="Interactive map of Europe">
+                </svg>
+
+                <div class="marine-controls">
+
+                    <button type="button"
+                            id="marine-plus"
+                            aria-label="Zoom in">
+                        +
+                    </button>
+
+                    <button type="button"
+                            id="marine-minus"
+                            aria-label="Zoom out">
+                        −
+                    </button>
+
+                    <button type="button"
+                            id="marine-reset"
+                            aria-label="Reset map">
+                        ↺
+                    </button>
+
+                </div>
+
+                <div class="marine-legend">
+                    <span class="marine-legend-dot"></span>
+                    Marine Network
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <aside class="marine-info"
+               aria-live="polite">
+
+            <div class="marine-info-label"
+                 id="marine-country">
+                Starting point
+            </div>
+
+            <h2 id="marine-title">
+                Alonnisos, Greece
+            </h2>
+
+            <p id="marine-description">
+                The starting point of the Scout Marine Network.
+                From Alonnisos, we connect Scouting with
+                discovering, protecting and responsibly engaging
+                with the marine environment.
+            </p>
+
+            <ul id="marine-list">
+                <li>Marine conservation</li>
+                <li>Scout education</li>
+                <li>Responsible use of the sea</li>
+            </ul>
+
+            <div class="marine-info-note"
+                 id="marine-stat">
+                Click a location on the map to explore
+                the network.
+            </div>
+
+        </aside>
+
+    </div>
+
+
+    <div class="marine-back">
+
+        <a href="../" class="button button-primary">
+            ← Back to homepage
+        </a>
+
+    </div>
+
+</div>
+```
+
+</main>
+
+<footer>
+
+```
+<p>
+    <strong>1st Alonnisos Scout Group</strong>
+</p>
+
+<p>
+    © 2026 Alonnisos Scouts
+</p>
+```
+
+</footer>
+
+<script type="module">
+
+(async function () {
+
+    const svgElement = document.getElementById("marine-map");
+
+    if (!svgElement) {
+        return;
+    }
+
+    try {
+
+        const [
+            d3,
+            topojson,
+            worldModule
+        ] = await Promise.all([
+
+            import(
+                "https://cdn.jsdelivr.net/npm/d3@7.9.0/+esm"
+            ),
+
+            import(
+                "https://cdn.jsdelivr.net/npm/topojson-client@3.1.0/+esm"
+            ),
+
+            import(
+                "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json/+esm"
+            )
+
+        ]);
+
+
+        const world = worldModule.default;
+
+        const countries =
+            topojson.feature(
+                world,
+                world.objects.countries
+            ).features;
+
+
+        const europeIds = new Set([
+
+            "8", "20", "40", "56", "70", "100",
+            "112", "191", "196", "203", "208",
+            "233", "246", "250", "268", "276",
+            "300", "348", "372", "376", "380",
+            "398", "428", "438", "440", "442",
+            "470", "492", "499", "528", "578",
+            "583", "616", "620", "642", "643",
+            "674", "688", "703", "705", "724",
+            "752", "756", "792", "804", "807",
+            "826"
+
+        ]);
+
+
+        const europe = countries.filter(
+            country => europeIds.has(String(country.id))
+        );
+
+
+        const collection = {
+            type: "FeatureCollection",
+            features: europe
+        };
+
+
+        const projection =
+            d3.geoMercator()
+              .fitExtent(
+                  [
+                      [30, 30],
+                      [870, 590]
+                  ],
+                  collection
+              );
+
+
+        const path =
+            d3.geoPath(projection);
+
+
+        const svg =
+            d3.select(svgElement);
+
+
+        const mapGroup =
+            svg.append("g");
+
+
+        mapGroup
+            .selectAll("path")
+            .data(europe)
+            .join("path")
+            .attr("class", "marine-country")
+            .attr("d", path)
+            .append("title")
+            .text(country =>
+                country.properties &&
+                country.properties.name
+                    ? country.properties.name
+                    : "Europe"
+            );
+
+
+        const locations = [
+
+            {
+                name: "Alonnisos, Greece",
+                country: "Starting point",
+                lon: 23.87,
+                lat: 39.15,
+                description:
+                    "The starting point of the Scout Marine Network.",
+                items: [
+                    "Marine conservation",
+                    "Scout education",
+                    "Responsible use of the sea"
+                ]
+            },
+
+            {
+                name: "Mediterranean Network",
+                country: "Mediterranean",
+                lon: 14,
+                lat: 38,
+                description:
+                    "A future connection point for Scout groups working around the Mediterranean.",
+                items: [
+                    "Marine awareness",
+                    "Shared activities",
+                    "Knowledge exchange"
+                ]
+            },
+
+            {
+                name: "Northern Europe",
+                country: "Northern Europe",
+                lon: 10,
+                lat: 55,
+                description:
+                    "A region for future cooperation between participating Scout groups.",
+                items: [
+                    "Coastal stewardship",
+                    "Outdoor education",
+                    "International cooperation"
+                ]
+            }
+
+        ];
+
+
+        const markerGroup =
+            mapGroup
+                .append("g")
+                .attr(
+                    "aria-label",
+                    "Marine Network locations"
+                );
+
+
+        function showLocation(location) {
+
+            document.getElementById(
+                "marine-country"
+            ).textContent =
+                location.country;
+
+
+            document.getElementById(
+                "marine-title"
+            ).textContent =
+                location.name;
+
+
+            document.getElementById(
+                "marine-description"
+            ).textContent =
+                location.description;
+
+
+            document.getElementById(
+                "marine-list"
+            ).innerHTML =
+                location.items
+                    .map(item => `<li>${item}</li>`)
+                    .join("");
+
+
+            document.getElementById(
+                "marine-stat"
+            ).textContent =
+                "Marine Network location selected.";
+        }
+
+
+        locations.forEach(location => {
+
+            const coordinates =
+                projection([
+                    location.lon,
+                    location.lat
+                ]);
+
+
+            if (!coordinates) {
+                return;
+            }
+
+
+            const marker =
+                markerGroup
+                    .append("g")
+                    .attr(
+                        "class",
+                        "marine-marker"
+                    )
+                    .attr(
+                        "tabindex",
+                        "0"
+                    )
+                    .attr(
+                        "role",
+                        "button"
+                    )
+                    .attr(
+                        "aria-label",
+                        location.name
+                    )
+                    .attr(
+                        "transform",
+                        `translate(${coordinates[0]},${coordinates[1]})`
+                    );
+
+
+            marker
+                .append("circle")
+                .attr(
+                    "class",
+                    "marine-marker-ring"
+                )
+                .attr("r", 11);
+
+
+            marker
+                .append("circle")
+                .attr(
+                    "class",
+                    "marine-marker-core"
+                )
+                .attr("r", 4);
+
+
+            marker.on(
+                "click",
+                function () {
+                    showLocation(location);
+                }
+            );
+
+
+            marker.on(
+                "keydown",
+                function (event) {
+
+                    if (
+                        event.key === "Enter" ||
+                        event.key === " "
+                    ) {
+
+                        event.preventDefault();
+
+                        showLocation(location);
+
+                    }
+
+                }
+            );
+
+        });
+
+
+        const zoom =
+            d3.zoom()
+              .scaleExtent([1, 7])
+              .on(
+                  "zoom",
+                  event => {
+                      mapGroup.attr(
+                          "transform",
+                          event.transform
+                      );
+                  }
+              );
+
+
+        svg.call(zoom);
+
+
+        document
+            .getElementById("marine-plus")
+            .addEventListener(
+                "click",
+                function () {
+
+                    svg.transition()
+                       .duration(250)
+                       .call(
+                           zoom.scaleBy,
+                           1.5
+                       );
+
+                }
+            );
+
+
+        document
+            .getElementById("marine-minus")
+            .addEventListener(
+                "click",
+                function () {
+
+                    svg.transition()
+                       .duration(250)
+                       .call(
+                           zoom.scaleBy,
+                           0.7
+                       );
+
+                }
+            );
+
+
+        document
+            .getElementById("marine-reset")
+            .addEventListener(
+                "click",
+                function () {
+
+                    svg.transition()
+                       .duration(300)
+                       .call(
+                           zoom.transform,
+                           d3.zoomIdentity
+                       );
+
+                }
+            );
+
+    } catch (error) {
+
+        svgElement.innerHTML = `
+            <text
+                x="450"
+                y="290"
+                text-anchor="middle"
+                fill="currentColor"
+                font-size="18">
+                The map could not be loaded.
+            </text>
+        `;
+
+        console.error(
+            "Marine Network map error:",
+            error
+        );
+
+    }
+
+})();
+
+</script>
+
+</body>
+</html>
